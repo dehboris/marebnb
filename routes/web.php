@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function() {
-    return 'logiran';
+    return view('welcome');
+})->middleware('auth');
+
+Route::get('/home', function() {
+    return view('home');
 })->middleware('auth');
 
 // Authentication Routes...
