@@ -17,14 +17,27 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
     return [
         'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'email' => $faker->unique()->safeEmail,
-        'password' => 'password',
-        'street' => $faker->streetAddress,
-        'country' => 'Hrvatska',
-        'city' => $faker->city,
-        'zip' => $faker->numberBetween(1, 20000),
-        'phone' => $faker->e164PhoneNumber,
-        'api_token' => str_random(60)
+        'last_name'  => $faker->lastName,
+        'email'      => $faker->unique()->safeEmail,
+        'password'   => 'password',
+        'street'     => $faker->streetAddress,
+        'country'    => 'Hrvatska',
+        'city'       => $faker->city,
+        'zip'        => $faker->numberBetween(1, 20000),
+        'phone'      => $faker->e164PhoneNumber,
+        'api_token'  => str_random(60)
     ];
 });
+
+$factory->define(App\Room::class, function (Faker\Generator $faker) {
+    $people = $faker->numberBetween(1, 5);
+
+    return [
+        'label'      => $faker->sentence,
+        'price'      => $faker->numberBetween(10, 50),
+        'min_people' => $people,
+        'max_people' => $people + $faker->numberBetween(1, 5),
+        'seaside'    => $faker->boolean,
+    ];
+});
+

@@ -11,14 +11,14 @@ class Reservation extends Model
      *
      * @var array
      */
-    protected $fillable = ['room_id', 'user_id', 'adults', 'children', 'need_parking', 'need_wifi', 'need_tv', 'date_start', 'date_end'];
+    protected $fillable = ['room_id', 'user_id', 'adults', 'children', 'need_parking', 'need_wifi', 'need_tv', 'date_start', 'date_end', 'approved_at'];
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['date_start', 'date_end'];
+    protected $dates = ['date_start', 'date_end', 'approved_at'];
 
     /**
      * A reservation belongs to a room.

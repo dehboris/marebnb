@@ -4,7 +4,12 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-	private $tables = ['objects', 'categories', 'users', 'rooms', 'reservations'];
+    /**
+     * Tables to truncate before running the seeder.
+     *
+     * @var array
+     */
+    private $tables = ['objects', 'categories', 'users', 'rooms', 'reservations'];
 
     /**
      * Run the database seeds.
@@ -13,19 +18,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->truncate();
+
         $this->call(UsersTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(ObjectsTableSeeder::class);
         $this->call(RoomsTableSeeder::class);
     }
 
-    private function truncate() {
-        \Schema::disableForeignKeyConstraints();
+    /**
+     * Truncate the tables before running seeder.
+     */
+    private function truncate()
+    {
+        Schema::disableForeignKeyConstraints();
 
-        foreach ($this->tables as $table) {
-        	\DB::table($table)->truncate();
-        }
+        collect($this->tables)->each(function ($table) {
+            DB::table($table)->truncate();
 
-        \Schema::enableForeignKeyConstraints();
+            $this->command->getOutput()->writeln("<info>Truncated:</info> $table");
+        });
+
+        Schema::enableForeignKeyConstraints();
     }
 }

@@ -25,6 +25,7 @@ class CreateReservationsTable extends Migration
             $table->timestamp('date_start')->nullable();
             $table->timestamp('date_end')->nullable();
             $table->timestamps();
+            $table->timestamp('approved_at')->nullable();
 
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

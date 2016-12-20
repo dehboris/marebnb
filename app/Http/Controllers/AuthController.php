@@ -39,6 +39,8 @@ class AuthController extends Controller
         $user = User::create($attributes);
 
         if ($user) {
+            // TODO: registration event (send mail)
+
             return response()->json(['api_token' => $user->api_token]);
         } else {
             return response()->json(['errors' => 'Error registering user.'], 400);

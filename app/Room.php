@@ -42,4 +42,23 @@ class Room extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * Get all available rooms.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function allFree()
+    {
+        // Get all approved reservations
+        $reservations = Reservation::whereNotNull('approved_at')->get();
+
+        return static::all()->filter(function($room) use ($reservations) {
+            foreach ($reservations as $reservation) {
+                if ($reservation->room_id == $room->id) return false;
+            }
+
+            return true;
+        });
+    }
 }

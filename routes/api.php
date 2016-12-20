@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,9 +11,15 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::get('/rooms', 'RoomsController@index');
+Route::get('/rooms/all', 'RoomsController@all');
+Route::post('/rooms/filter', 'RoomsController@filter');
+Route::get('/rooms/{id}', 'RoomsController@show')->where('id', '[0-9]+');
+
+// Get all objects and categories
+Route::get('/objects', 'ObjectsController@index');
+Route::get('/categories', 'CategoriesController@index');
+
+// Authentication routes
 Route::post('/auth/login', 'AuthController@login');
 Route::post('/auth/register', 'AuthController@register');
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
