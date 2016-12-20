@@ -51,4 +51,14 @@ class User extends Authenticatable
     {
         return static::where('email', $email)->first()->api_token;
     }
+
+    /**
+     * Is owner or not?
+     *
+     * @return bool
+     */
+    public function isOwner()
+    {
+        return $this->user_type == 2;
+    }
 }
