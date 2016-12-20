@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
@@ -32,18 +32,15 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        $attributes = $request->all();
+        $attributes = $request->except('user_type');
         $attributes['api_token'] = str_random(60);
 
         // Create new User instance and persist it to the database
         $user = User::create($attributes);
 
-        if ($user) {
-            // TODO: registration event (send mail)
+        $code = $user ? 200 : 400;
+        $message = $user ? ['api_token' => $user->api_token] : ['errors' => 'Error registering user.'];
 
-            return response()->json(['api_token' => $user->api_token]);
-        } else {
-            return response()->json(['errors' => 'Error registering user.'], 400);
-        }
+        return response()->json($message, $code);
     }
 }

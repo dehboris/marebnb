@@ -15,6 +15,9 @@ Route::get('/rooms', 'RoomsController@index');
 Route::post('/rooms/filter', 'RoomsController@filter');
 Route::get('/rooms/{id}', 'RoomsController@show')->where('id', '[0-9]+');
 
+// Create a new reservation
+Route::post('/rooms/{id}', 'ReservationsController@store')->where('id', '[0-9]+');
+
 // Get all objects and categories
 Route::get('/objects', 'ObjectsController@index');
 Route::get('/categories', 'CategoriesController@index');

@@ -33,8 +33,7 @@ class RegisterRequest extends FormRequest
             'street'     => 'required',
             'city'       => 'required',
             'country'    => 'required',
-            'phone'      => 'required',
-            'zip'        => 'required|numeric|between:0,10000'
+            'zip'        => 'required|numeric|digits:5'
         ];
     }
 
