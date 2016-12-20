@@ -13,7 +13,13 @@ class RoomPhoto extends Model
      */
     protected $fillable = ['room_id', 'filename'];
 
-    public function room() {
-    	return $this->belongsTo(Room::class);
+    /**
+     * Photo belongs to the room.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
     }
 }

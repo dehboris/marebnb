@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends Model
 {
-	use SoftDeletes;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -23,11 +23,23 @@ class Room extends Model
      */
     protected $dates = ['deleted_at', 'last_reservation'];
 
-    public function object() {
-    	return $this->belongsTo(Object::class);
+    /**
+     * Room belongs to an object.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function object()
+    {
+        return $this->belongsTo(Object::class);
     }
 
-    public function category() {
-    	return $this->belongsTo(Category::class);
+    /**
+     * Room belongs to the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

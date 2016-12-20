@@ -20,11 +20,23 @@ class Reservation extends Model
      */
     protected $dates = ['date_start', 'date_end'];
 
-    public function room() {
-    	return $this->belongsTo(Room::class);
+    /**
+     * A reservation belongs to a room.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
     }
 
-    public function user() {
-    	return $this->belongsTo(User::class);
+    /**
+     * A reservation is created by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

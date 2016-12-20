@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Auth;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 
-class LoginRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,15 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'    => 'required',
-            'password' => 'required'
+            'first_name' => 'required|alpha|max:60',
+            'last_name'  => 'required|alpha|max:60',
+            'email'      => 'required|email|unique:users',
+            'password'   => 'required|alpha_dash|min:4',
+            'street'     => 'required',
+            'city'       => 'required',
+            'country'    => 'required',
+            'phone'      => 'required',
+            'zip'        => 'required|numeric|between:0,10000'
         ];
     }
 

@@ -31,7 +31,24 @@ class User extends Authenticatable
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function setPasswordAttribute($value) {
+    /**
+     * Automatically hash the password before persisting to the database.
+     *
+     * @param $value
+     */
+    public function setPasswordAttribute($value)
+    {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
+     * Returns API token for the user with email.
+     *
+     * @param string $email Email address
+     * @return string
+     */
+    public static function getTokenFor(string $email)
+    {
+        return static::where('email', $email)->first()->api_token;
     }
 }
