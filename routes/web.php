@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function() {
-    return view('welcome');
+    return view('welcome')->with(['rooms' => \App\Room::getAllRooms()]);
 })->middleware('auth');
 
 Route::get('/home', function() {
