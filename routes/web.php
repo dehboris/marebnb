@@ -11,8 +11,10 @@
 |
 */
 
+use App\Room;
+
 Route::get('/', function() {
-    return view('welcome')->with(['rooms' => \App\Room::getAllRooms()]);
+    return view('welcome')->with(['rooms' => Room::all()]);
 })->middleware('auth');
 
 Route::get('/home', function() {

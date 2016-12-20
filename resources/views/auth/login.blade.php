@@ -3,17 +3,18 @@
 @section('content')
 <div class="login-page">
     <div class="form">
-        <form class="login-form" action="/login" method="post">
-            {{csrf_field()}}
-            <input type="email" placeholder="e-mail" name="email" id="email" value="{{ old('email') }}"/>
-            <input type="password" placeholder="password" name="password" id="password"/>
-            <h6 class="h6" id="message">
-                @foreach ($errors->all() as $error)
-                {{$error}}
-                @endforeach
-            </h6>
+        @if ($errors->count() != 0)
+            <div class="alert alert-danger" id="message">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
+        <form class="login-form" action="{{ route('login') }}" method="POST">
+            {{ csrf_field() }}
+            <input type="email" placeholder="E-mail adresa" name="email" id="email" value="{{ old('email') }}" required />
+            <input type="password" placeholder="Lozinka" name="password" id="password" required />
             <div id="login_button">
-                <button type="submit">login</button>
+                <button type="submit">Prijava</button>
             </div>
         </form>
     </div>

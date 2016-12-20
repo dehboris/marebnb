@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -33,5 +34,26 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return void
+     */
+    protected function validateLogin(Request $request)
+    {
+        $attributes = [
+            'email'    => 'required',
+            'password' => 'required',
+        ];
+
+        $messages = [
+            'email.required'    => 'E-mail adresa ili lozinka koje ste unijeli nisu ispravni.',
+            'password.required' => 'E-mail adresa ili lozinka koje ste unijeli nisu ispravni.'
+        ];
+
+        $this->validate($request, $attributes, $messages);
     }
 }
