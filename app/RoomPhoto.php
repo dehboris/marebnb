@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class RoomPhoto extends Model
 {
     /**
+     * Database table used for the model.
+     *
+     * @var string
+     */
+    protected $table = 'room_gallery';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -18,8 +25,8 @@ class RoomPhoto extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function room()
-    {
-        return $this->belongsTo(Room::class);
-    }
+//    public function room()
+//    {
+//        return $this->belongsTo(Room::class);
+//    }
 }

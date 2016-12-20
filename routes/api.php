@@ -12,7 +12,6 @@
 */
 
 Route::get('/rooms', 'RoomsController@index');
-Route::get('/rooms/all', 'RoomsController@all');
 Route::post('/rooms/filter', 'RoomsController@filter');
 Route::get('/rooms/{id}', 'RoomsController@show')->where('id', '[0-9]+');
 

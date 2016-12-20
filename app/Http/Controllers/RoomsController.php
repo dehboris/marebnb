@@ -15,17 +15,7 @@ class RoomsController extends Controller
      */
     public function index()
     {
-        return Room::allFree();
-    }
-
-    /**
-     * Show all rooms but paginate them.
-     *
-     * @return mixed
-     */
-    public function all()
-    {
-        return Room::paginate(10);
+        return Room::getAllRooms();
     }
 
     /**

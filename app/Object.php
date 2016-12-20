@@ -12,4 +12,11 @@ class Object extends Model
      * @var array
      */
     protected $fillable = ['label'];
+
+    /**
+     * The attributes that are hidden from the public.
+     *
+     * @var array
+     */
+    protected $hidden = ['created_at', 'updated_at'];
 }

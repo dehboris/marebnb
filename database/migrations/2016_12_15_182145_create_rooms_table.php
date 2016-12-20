@@ -17,14 +17,15 @@ class CreateRoomsTable extends Migration
             $table->increments('id');
             $table->integer('object_id')->unsigned();
             $table->integer('category_id')->unsigned();
-            $table->string('label')->unique();
+            $table->string('label', 30);
             $table->float('price', 5, 2);
             $table->smallInteger('max_people');
             $table->smallInteger('min_people');
             $table->boolean('seaside');
-            $table->timestamp('last_reservation')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->timestamp('reserved_at')->nullable();
+            $table->timestamp('reserved_until')->nullable();
 
             $table->foreign('object_id')->references('id')->on('objects')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

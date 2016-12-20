@@ -14,14 +14,21 @@ class Room extends Model
      *
      * @var array
      */
-    protected $fillable = ['object_id', 'category_id', 'label', 'price', 'max_people', 'min_people', 'seaside'];
+    protected $fillable = ['object_id', 'label', 'category_id', 'price', 'max_people', 'min_people', 'seaside'];
+
+    /**
+     * Attributes that should be cast to another types.
+     *
+     * @var array
+     */
+    protected $casts = ['seaside' => 'bool'];
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['deleted_at', 'last_reservation'];
+    protected $dates = ['deleted_at', 'reserved_at', 'reserved_until'];
 
     /**
      * Room belongs to an object.
@@ -44,21 +51,66 @@ class Room extends Model
     }
 
     /**
+     * Room has many photos.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function photos()
+    {
+        return $this->hasMany(RoomPhoto::class);
+    }
+
+    /**
+     * A room has many reservations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    /**
      * Get all available rooms.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public static function allFree()
+    public static function getAllRooms()
     {
-        // Get all approved reservations
-        $reservations = Reservation::whereNotNull('approved_at')->get();
+        // Get only approved reservations
+        $approvedReservations = function ($reservation) {
+            return !is_null($reservation->approved_at);
+        };
 
-        return static::all()->filter(function($room) use ($reservations) {
-            foreach ($reservations as $reservation) {
-                if ($reservation->room_id == $room->id) return false;
-            }
+        // Only show start date and end date of the reservation
+        $reservationsTransformer = function ($reservation) {
+            return [
+                'start' => $reservation->date_start->timestamp,
+                'end'   => $reservation->date_end->timestamp
+            ];
+        };
 
-            return true;
-        });
+        // Transform photos collection and only show photo URL
+        $photoFilenameTransformer = function ($photo) {
+            return $photo->filename;
+        };
+
+        // Transform room
+        $roomTransformer = function ($room) use ($approvedReservations, $reservationsTransformer, $photoFilenameTransformer) {
+            return [
+                'id'           => $room->id,
+                'label'        => $room->label,
+                'price'        => $room->price,
+                'max_people'   => $room->max_people,
+                'min_people'   => $room->min_people,
+                'seaside'      => $room->seaside,
+                'photos'       => $room->photos->transform($photoFilenameTransformer),
+                'object'       => $room->object,
+                'category'     => $room->category,
+                'reservations' => $room->reservations->filter($approvedReservations)->transform($reservationsTransformer)->values()
+            ];
+        };
+
+        return static::all()->transform($roomTransformer)->values();
     }
 }
