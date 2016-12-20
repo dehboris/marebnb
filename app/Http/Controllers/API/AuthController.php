@@ -21,7 +21,7 @@ class AuthController extends Controller
         if (Auth::validate($request->only('email', 'password'))) {
             return response()->json(['api_token' => User::getTokenFor($request->get('email'))]);
         } else {
-            return response()->json(['errors' => 'Invalid credentials.'], 401);
+            return response()->json(['errors' => 'E-mail adresa ili lozinka koje ste unijeli nisu ispravni.'], 401);
         }
     }
 
@@ -41,7 +41,7 @@ class AuthController extends Controller
         $user = User::create($attributes);
 
         $code = $user ? 200 : 400;
-        $message = $user ? ['api_token' => $user->api_token] : ['errors' => 'Error registering user.'];
+        $message = $user ? ['api_token' => $user->api_token] : ['errors' => 'Greška u sustavu.'];
 
         return response()->json($message, $code);
     }

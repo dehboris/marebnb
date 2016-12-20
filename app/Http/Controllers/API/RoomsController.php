@@ -27,35 +27,6 @@ class RoomsController extends Controller
      */
     public function show(int $id)
     {
-        return Room::with('object', 'category')->find($id) ?: response()->json(["errors" => "Room with an ID of $id not found."], 404);
-    }
-
-    /**
-     * Filter rooms using requests. If there are no rooms found, return error message.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function filter(Request $request)
-    {
-        $query = Room::select(DB::raw('*'));
-
-        if (($request->has('object_id') && !is_numeric($request->get('object_id'))) || ($request->has('category_id') && !is_numeric($request->get('category_id')))) {
-            return response()->json(['errors' => 'No rooms found.'], 404);
-        }
-
-        foreach (['object_id', 'category_id', 'seaside', 'min_people', 'max_people'] as $rule) {
-            if ($request->has($rule)) {
-                $query = $query->where($rule, $request->get($rule));
-            }
-        };
-
-        if ($request->has('price') && $request->has('price_type')) {
-            $query = $query->where('price', $request->get('price_type'), $request->get('price'));
-        }
-
-        $results = $query->get();
-
-        return $results->count() != 0 ? $results : response()->json(['errors' => 'No rooms found.'], 404);
+        return Room::with('object', 'category')->find($id) ?: response()->json(["errors" => "Soba s ID $id nije pronađena."], 404);
     }
 }

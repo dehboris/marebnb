@@ -45,7 +45,7 @@ class RegisterRequest extends FormRequest
      */
     public function forbiddenResponse()
     {
-        return new JsonResponse(['errors' => 'Already logged in.'], 403);
+        return new JsonResponse(['errors' => 'Već ste prijavljeni.'], 403);
     }
 
     /**
