@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\User;
@@ -34,6 +35,7 @@ class AuthController extends Controller
     {
         $attributes = $request->except('user_type');
         $attributes['api_token'] = str_random(60);
+        $attributes['user_type'] = 0;
 
         // Create new User instance and persist it to the database
         $user = User::create($attributes);
