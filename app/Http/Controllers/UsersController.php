@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAdminRequest\Users;
+use App\Http\Requests\Users\CreateUserRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\User;
 
 class UsersController extends Controller
@@ -34,10 +35,10 @@ class UsersController extends Controller
     /**
      * Persist new administrator to the database.
      *
-     * @param StoreAdminRequest $request
+     * @param CreateUserRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function storeAdmin(StoreAdminRequest $request)
+    public function storeAdmin(CreateUserRequest $request)
     {
         if (User::numberOfAdmins() >= config('site.max_admins')) {
             return redirect()->route('users.index')->with('error', 'Već postoji ' . config('site.max_admins') . ' administratora.');
@@ -48,5 +49,80 @@ class UsersController extends Controller
         } else {
             return redirect()->route('users.index')->with('error', 'Greška u sustavu.');
         }
+    }
+
+    /**
+     * Show a form for creating new users.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('dashboard.users.create');
+    }
+
+    /**
+     * Persist new object to the database.
+     *
+     * @param CreateUserRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(CreateUserRequest $request)
+    {
+        $user = User::createUser($request->all());
+
+        if ($user) {
+            return redirect()->route('users.index')->with('success', 'Uspješno ste novi korisnički račun s e-mail adresom: ' . $user->email);
+        } else {
+            return redirect()->route('users.index')->with('error', 'Greška u sustavu.');
+        }
+    }
+
+    /**
+     * Edit a user.
+     *
+     * @param int $id ID of the user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(int $id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('dashboard.users.edit')->with('user', $user);
+    }
+
+    /**
+     * Persist the user changes to the database.
+     *
+     * @param UpdateUserRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateUserRequest $request, int $id)
+    {
+        $user = User::findOrFail($id);
+        $user->update($request->except('password'));
+
+        return redirect()->back()->with('success', 'Uspješno ste uredili korisnika.');
+    }
+
+    /**
+     * Destroy a resource from the database.
+     *
+     * @param int $id ID of the resource
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(int $id)
+    {
+        $user = User::findOrFail($id);
+
+        // Can't delete the owner.
+        if ($user->isOwner()) {
+            return redirect()->route('users.index')->with('error', 'Vlasnik se ne može obrisati.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'Uspješno ste obrisali korisnika te sve rezervacije asocirane za taj objekt.');
     }
 }

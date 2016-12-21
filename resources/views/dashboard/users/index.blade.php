@@ -5,11 +5,13 @@
         <div class="panel-heading">
             Pregled svih korisnika
 
-            @if (App\User::numberOfAdmins() < config('site.max_admins'))
             <div class="pull-right">
-                <a href="{{ route('users.create-admin') }}">Dodaj novog administratora</a>
+                <a href="{{ route('users.create') }}">Dodaj novog korisnika</a>
+                @if (App\User::numberOfAdmins() < config('site.max_admins'))
+                    &ndash; <a href="{{ route('users.create-admin') }}">Dodaj novog administratora</a>
+                @endif
             </div>
-            @endif
+
         </div>
 
         <table class="table table-striped">
@@ -26,7 +28,14 @@
                     <td style="vertical-align: middle;">{{ $user->email }}</td>
                     <td style="vertical-align: middle;">{!! $user->role() !!}</td>
                     <td style="vertical-align: middle;">{{ $user->street }},<br>{{ $user->zip }} {{ $user->city }}<br>{{ $user->country }}</td>
-                    <td style="vertical-align: middle;"><a href="#"><i class="fa fa-edit"></i></a> &ndash; <a href="#"><i class="fa fa-trash"></i></a></td>
+                    <td style="vertical-align: middle;">
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                        <form action="{{ route('users.destroy', $user->id) }}" style="display: inline" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </table>

@@ -136,4 +136,18 @@ class User extends Authenticatable
 
         return static::create($attributes);
     }
+
+    /**
+     * Create new user account.
+     *
+     * @param array $attributes Attributes
+     * @return static
+     */
+    public static function createUser(array $attributes)
+    {
+        $attributes['user_type'] = static::USER;
+        $attributes['api_token'] = generate_token();
+
+        return static::create($attributes);
+    }
 }

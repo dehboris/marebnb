@@ -21,8 +21,21 @@ Route::get('/', 'DashboardController@index')->name('home')->middleware('auth');
 // Users resource
 Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], function() {
     Route::get('/', 'UsersController@index')->name('index');
+
+    // Create new administrator
     Route::get('/create-admin', 'UsersController@createAdmin')->name('create-admin')->middleware('owner');
     Route::post('/create-admin', 'UsersController@storeAdmin')->middleware('owner');
+
+    // Create and store new user
+    Route::get('/create', 'UsersController@create')->name('create')->middleware('owner');
+    Route::post('/', 'UsersController@store')->name('store')->middleware('owner');
+
+    // Edit and update the user
+    Route::get('/{id}', 'UsersController@edit')->name('edit')->where('id', '[0-9]+')->middleware('owner');
+    Route::put('/{id}', 'UsersController@update')->name('update')->where('id', '[0-9]+')->middleware('owner');
+
+    // Destroy the resource
+    Route::delete('/{id}', 'UsersController@destroy')->name('destroy')->where('id', '[0-9]+')->middleware('owner');
 });
 
 // Objects resource

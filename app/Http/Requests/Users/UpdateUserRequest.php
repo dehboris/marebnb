@@ -5,7 +5,7 @@ namespace App\Http\Requests\Users;
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAdminRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +27,7 @@ class StoreAdminRequest extends FormRequest
         return [
             'first_name' => 'required|alpha|max:60',
             'last_name'  => 'required|alpha|max:60',
-            'email'      => 'required|email|unique:users',
-            'password'   => 'required|alpha_dash|min:4',
+            'email'      => 'required|email|unique:users,email,' . $this->route()->getParameter('id'),
             'street'     => 'required',
             'city'       => 'required',
             'country'    => 'required',

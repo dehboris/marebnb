@@ -19,9 +19,9 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (Auth::validate($request->only('email', 'password'))) {
-            return response()->json(['api_token' => User::getTokenFor($request->get('email')), 'errors' => null]);
+            return response()->json(['token' => ['api_token' => User::getTokenFor($request->get('email')), 'errors' => null]]);
         } else {
-            return response()->json(['errors' => 'E-mail adresa ili lozinka koje ste unijeli nisu ispravni.', 'api_token' => null], 422);
+            return response()->json(['token' => ['errors' => 'E-mail adresa ili lozinka koje ste unijeli nisu ispravni.', 'api_token' => null]], 422);
         }
     }
 
