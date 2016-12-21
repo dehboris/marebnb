@@ -11,15 +11,12 @@
 |
 */
 
-
-Route::get('/setup', function() {
-    return 'Initial admin setup!';
-})->name('setup');
-
 Route::get('/', 'DashboardController@index')->name('home')->middleware('auth');
+Route::get('/setup', 'DashboardController@setup')->name('setup');
+Route::post('/setup', 'DashboardController@initialRelease');
 
 // Users resource
-Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], function() {
+Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], function () {
     Route::get('/', 'UsersController@index')->name('index');
 
     // Create new administrator
@@ -39,7 +36,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], fu
 });
 
 // Objects resource
-Route::group(['prefix' => 'objects', 'middleware' => 'auth', 'as' => 'objects.'], function() {
+Route::group(['prefix' => 'objects', 'middleware' => 'auth', 'as' => 'objects.'], function () {
     Route::get('/', 'ObjectsController@index')->name('index');
 
     // Create and store the object
@@ -55,7 +52,7 @@ Route::group(['prefix' => 'objects', 'middleware' => 'auth', 'as' => 'objects.']
 });
 
 // Categories resource
-Route::group(['prefix' => 'categories', 'middleware' => 'auth', 'as' => 'categories.'], function() {
+Route::group(['prefix' => 'categories', 'middleware' => 'auth', 'as' => 'categories.'], function () {
     Route::get('/', 'CategoriesController@index')->name('index');
 
     // Create and store the resource

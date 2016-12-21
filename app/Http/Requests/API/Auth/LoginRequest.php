@@ -50,6 +50,23 @@ class LoginRequest extends FormRequest
      */
     protected function formatErrors(Validator $validator)
     {
-        return ['errors' => $validator->errors()->first()];
+        return ['api_token' => null, 'errors' => $validator->errors()->first()];
+    }
+
+    /**
+     * Get the proper failed validation response for the request.
+     *
+     * @param  array  $errors
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function response(array $errors)
+    {
+        if ($this->expectsJson()) {
+            return new JsonResponse($errors, 200);
+        }
+
+        return $this->redirector->to($this->getRedirectUrl())
+            ->withInput($this->except($this->dontFlash))
+            ->withErrors($errors, $this->errorBag);
     }
 }

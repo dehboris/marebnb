@@ -150,4 +150,22 @@ class User extends Authenticatable
 
         return static::create($attributes);
     }
+
+    /**
+     * Create the owner account.
+     *
+     * @param array $attributes Attributes
+     * @return static
+     */
+    public static function createOwner(array $attributes)
+    {
+        if (static::ownerExists()) {
+            return null;
+        }
+
+        $attributes['user_type'] = static::OWNER;
+        $attributes['api_token'] = generate_token();
+
+        return static::create($attributes);
+    }
 }

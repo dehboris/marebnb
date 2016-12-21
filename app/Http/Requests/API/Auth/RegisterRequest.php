@@ -27,14 +27,14 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|alpha|max:60',
-            'last_name'  => 'required|alpha|max:60',
+            'first_name' => 'required|max:60',
+            'last_name'  => 'required|max:60',
             'email'      => 'required|email|unique:users',
-            'password'   => 'required|alpha_dash|min:4',
+            'password'   => 'required',
             'street'     => 'required',
             'city'       => 'required',
             'country'    => 'required',
-            'zip'        => 'required|numeric|digits:5'
+            'zip'        => 'required|digits:5'
         ];
     }
 
@@ -45,7 +45,7 @@ class RegisterRequest extends FormRequest
      */
     public function forbiddenResponse()
     {
-        return new JsonResponse(['errors' => 'Već ste prijavljeni.'], 403);
+        return new JsonResponse(['errors' => 'Već ste prijavljeni.', 'api_token' => null], 200);
     }
 
     /**
@@ -56,6 +56,23 @@ class RegisterRequest extends FormRequest
      */
     protected function formatErrors(Validator $validator)
     {
-        return ['errors' => $validator->errors()->first(), 'api_token' => null];
+        return ['api_token' => null, 'errors' => $validator->errors()->first()];
+    }
+
+    /**
+     * Get the proper failed validation response for the request.
+     *
+     * @param  array  $errors
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function response(array $errors)
+    {
+        if ($this->expectsJson()) {
+            return new JsonResponse($errors, 200);
+        }
+
+        return $this->redirector->to($this->getRedirectUrl())
+            ->withInput($this->except($this->dontFlash))
+            ->withErrors($errors, $this->errorBag);
     }
 }
