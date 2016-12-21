@@ -11,5 +11,6 @@
         <li><a href="#">Smještajne jedinice</a></li>
         <li><a href="#">Rezervacije</a></li>
         <li><a href="{{ route('objects.index') }}">Objekti</a></li>
+        <li><a href="{{ route('categories.index') }}">Kategorije</a></li>
     </ul>
 @endsection

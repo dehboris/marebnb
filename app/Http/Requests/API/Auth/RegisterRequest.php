@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API\Auth;
 
+use Auth;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
 use Illuminate\Http\JsonResponse;
 
-class LoginRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +27,14 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'    => 'required',
-            'password' => 'required'
+            'first_name' => 'required|alpha|max:60',
+            'last_name'  => 'required|alpha|max:60',
+            'email'      => 'required|email|unique:users',
+            'password'   => 'required|alpha_dash|min:4',
+            'street'     => 'required',
+            'city'       => 'required',
+            'country'    => 'required',
+            'zip'        => 'required|numeric|digits:5'
         ];
     }
 
@@ -50,6 +56,6 @@ class LoginRequest extends FormRequest
      */
     protected function formatErrors(Validator $validator)
     {
-        return ['errors' => $validator->errors()->first()];
+        return ['errors' => $validator->errors()->first(), 'api_token' => null];
     }
 }

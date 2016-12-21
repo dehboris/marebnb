@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateObjectRequest;
-use App\Http\Requests\UpdateObjectRequest;
+use App\Http\Requests\Objects\CreateObjectRequest;
+use App\Http\Requests\Objects\UpdateObjectRequest;
 use App\Object;
 
 class ObjectsController extends Controller

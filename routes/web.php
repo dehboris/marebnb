@@ -25,7 +25,7 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], fu
     Route::post('/create-admin', 'UsersController@storeAdmin')->middleware('owner');
 });
 
-// Objects object
+// Objects resource
 Route::group(['prefix' => 'objects', 'middleware' => 'auth', 'as' => 'objects.'], function() {
     Route::get('/', 'ObjectsController@index')->name('index');
 
@@ -39,6 +39,22 @@ Route::group(['prefix' => 'objects', 'middleware' => 'auth', 'as' => 'objects.']
 
     // Destroy the object
     Route::delete('/{id}', 'ObjectsController@destroy')->name('destroy')->where('id', '[0-9]+')->middleware('owner');
+});
+
+// Categories resource
+Route::group(['prefix' => 'categories', 'middleware' => 'auth', 'as' => 'categories.'], function() {
+    Route::get('/', 'CategoriesController@index')->name('index');
+
+    // Create and store the resource
+    Route::get('/create', 'CategoriesController@create')->name('create')->middleware('owner');
+    Route::post('/', 'CategoriesController@store')->name('store')->middleware('owner');
+
+    // Edit and update the resource
+    Route::get('/{id}', 'CategoriesController@edit')->name('edit')->where('id', '[0-9]+')->middleware('owner');
+    Route::put('/{id}', 'CategoriesController@update')->name('update')->where('id', '[0-9]+')->middleware('owner');
+
+    // Destroy the resource
+    Route::delete('/{id}', 'CategoriesController@destroy')->name('destroy')->where('id', '[0-9]+')->middleware('owner');
 });
 
 // Authentication Routes...
