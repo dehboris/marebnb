@@ -3,11 +3,9 @@
 namespace App\Http\Requests;
 
 use Auth;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\JsonResponse;
 
-class RegisterRequest extends FormRequest
+class StoreAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +14,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return !Auth::guard('api')->check();
+        return Auth::check() && Auth::user()->isOwner();
     }
 
     /**
@@ -36,26 +34,5 @@ class RegisterRequest extends FormRequest
             'country'    => 'required',
             'zip'        => 'required|numeric|digits:5'
         ];
-    }
-
-    /**
-     * Custom response message if user is not authorized to perform this action (already logged in).
-     *
-     * @return JsonResponse
-     */
-    public function forbiddenResponse()
-    {
-        return new JsonResponse(['errors' => 'Već ste prijavljeni.'], 403);
-    }
-
-    /**
-     * Format the errors from the given Validator instance.
-     *
-     * @param  \Illuminate\Contracts\Validation\Validator $validator
-     * @return array
-     */
-    protected function formatErrors(Validator $validator)
-    {
-        return ['errors' => $validator->errors()->first(), 'api_token' => null];
     }
 }

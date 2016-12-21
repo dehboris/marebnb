@@ -19,9 +19,9 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (Auth::validate($request->only('email', 'password'))) {
-            return response()->json(['api_token' => User::getTokenFor($request->get('email'))]);
+            return response()->json(['api_token' => User::getTokenFor($request->get('email')), 'errors' => null]);
         } else {
-            return response()->json(['errors' => 'E-mail adresa ili lozinka koje ste unijeli nisu ispravni.'], 401);
+            return response()->json(['errors' => 'E-mail adresa ili lozinka koje ste unijeli nisu ispravni.', 'api_token' => null], 422);
         }
     }
 
@@ -41,7 +41,7 @@ class AuthController extends Controller
         $user = User::create($attributes);
 
         $code = $user ? 200 : 400;
-        $message = $user ? ['api_token' => $user->api_token] : ['errors' => 'Greška u sustavu.'];
+        $message = $user ? ['api_token' => $user->api_token, 'errors' => null] : ['errors' => 'Greška u sustavu.'];
 
         return response()->json($message, $code);
     }

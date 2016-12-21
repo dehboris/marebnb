@@ -61,4 +61,40 @@ class User extends Authenticatable
     {
         return $this->user_type == 2;
     }
+
+    /**
+     * Get user's full name.
+     *
+     * @return string
+     */
+    public function fullName()
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
+
+    /**
+     * Show user role as a string.
+     *
+     * @return string
+     */
+    public function role()
+    {
+        if ($this->user_type == 2) {
+            return "<span class=\"label label-danger\">Vlasnik</span>";
+        } else if ($this->user_type == 1) {
+            return "<span class=\"label label-primary\">Administrator</span>";
+        } else {
+            return "<span class=\"label label-default\">Korisnik</span>";
+        }
+    }
+
+    /**
+     * Get number of administrators.
+     *
+     * @return mixed
+     */
+    public static function numberOfAdmins()
+    {
+        return static::where('user_type', 1)->count();
+    }
 }

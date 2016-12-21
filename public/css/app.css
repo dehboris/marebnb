@@ -7691,6 +7691,11 @@ button.close {
 
 html, body, #app {
   height: 100%;
+  padding: 10px;
+}
+
+.middle {
+  vertical-align: middle;
 }
 
 .login-page {
