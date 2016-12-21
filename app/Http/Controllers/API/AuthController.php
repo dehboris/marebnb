@@ -34,7 +34,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $attributes = $request->except('user_type');
-        $attributes['api_token'] = str_random(60);
+        $attributes['api_token'] = generate_token();
         $attributes['user_type'] = 0;
 
         // Create new User instance and persist it to the database

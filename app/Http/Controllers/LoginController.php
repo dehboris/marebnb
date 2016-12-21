@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -66,7 +67,7 @@ class LoginController extends Controller
     protected function ownerCredentials(Request $request)
     {
         $attributes = $request->only('email', 'password');
-        $attributes['user_type'] = 2;
+        $attributes['user_type'] = User::OWNER;
 
         return $attributes;
     }
@@ -80,7 +81,7 @@ class LoginController extends Controller
     protected function adminCredentials(Request $request)
     {
         $attributes = $request->only('email', 'password');
-        $attributes['user_type'] = 1;
+        $attributes['user_type'] = User::ADMIN;
 
         return $attributes;
     }

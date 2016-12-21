@@ -84,6 +84,6 @@ class ObjectsController extends Controller
         $object = Object::findOrFail($id);
         $object->delete();
 
-        return redirect()->route('objects.index')->with('success', 'Uspješno ste obrisali objekt te sve sobe asocirane za taj objekt.');
+        return redirect()->route('objects.index')->with('success', 'Uspješno ste obrisali objekt te sve smještajne jedinice asocirane za taj objekt.');
     }
 }

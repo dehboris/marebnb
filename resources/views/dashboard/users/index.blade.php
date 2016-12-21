@@ -5,7 +5,7 @@
         <div class="panel-heading">
             Pregled svih korisnika
 
-            @if (App\User::numberOfAdmins() < 3)
+            @if (App\User::numberOfAdmins() < config('site.max_admins'))
             <div class="pull-right">
                 <a href="{{ route('users.create-admin') }}">Dodaj novog administratora</a>
             </div>

@@ -24,8 +24,8 @@ class UsersController extends Controller
      */
     public function createAdmin()
     {
-        if (User::numberOfAdmins() >= 3) {
-            return redirect()->route('users.index')->with('error', 'Već postoji 3 administratora.');
+        if (User::numberOfAdmins() >= config('site.max_admins')) {
+            return redirect()->route('users.index')->with('error', 'Već postoji ' . config('site.max_admins') . ' administratora.');
         }
 
         return view('dashboard.users.create-admin');
@@ -39,17 +39,11 @@ class UsersController extends Controller
      */
     public function storeAdmin(StoreAdminRequest $request)
     {
-        if (User::numberOfAdmins() >= 3) {
-            return redirect()->route('users.index')->with('error', 'Već postoji 3 administratora.');
+        if (User::numberOfAdmins() >= config('site.max_admins')) {
+            return redirect()->route('users.index')->with('error', 'Već postoji ' . config('site.max_admins') . ' administratora.');
         }
 
-        $attributes = $request->all();
-        $attributes['user_type'] = 1;
-        $attributes['api_token'] = str_random(60);
-
-        $user = User::create($attributes);
-
-        if ($user) {
+        if (User::createAdmin($request->all())) {
             return redirect()->route('users.index')->with('success', 'Uspješno ste dodali novog administratora.');
         } else {
             return redirect()->route('users.index')->with('error', 'Greška u sustavu.');

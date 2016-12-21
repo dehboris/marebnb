@@ -11,6 +11,21 @@ class User extends Authenticatable
     use Notifiable, SoftDeletes;
 
     /**
+     * Owner role
+     */
+    const OWNER = 2;
+
+    /**
+     * Admin role
+     */
+    const ADMIN = 1;
+
+    /**
+     * User role
+     */
+    const USER = 0;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -59,7 +74,7 @@ class User extends Authenticatable
      */
     public function isOwner()
     {
-        return $this->user_type == 2;
+        return $this->user_type == static::OWNER;
     }
 
     /**
@@ -79,9 +94,9 @@ class User extends Authenticatable
      */
     public function role()
     {
-        if ($this->user_type == 2) {
+        if ($this->user_type == static::OWNER) {
             return "<span class=\"label label-danger\">Vlasnik</span>";
-        } else if ($this->user_type == 1) {
+        } else if ($this->user_type == static::ADMIN) {
             return "<span class=\"label label-primary\">Administrator</span>";
         } else {
             return "<span class=\"label label-default\">Korisnik</span>";
@@ -95,7 +110,7 @@ class User extends Authenticatable
      */
     public static function numberOfAdmins()
     {
-        return static::where('user_type', 1)->count();
+        return static::where('user_type', static::ADMIN)->count();
     }
 
     /**
@@ -105,6 +120,20 @@ class User extends Authenticatable
      */
     public static function ownerExists()
     {
-        return static::where('user_type', 2)->count() == 1;
+        return static::where('user_type', static::OWNER)->count() == 1;
+    }
+
+    /**
+     * Create new admin account.
+     *
+     * @param array $attributes Attributes
+     * @return static
+     */
+    public static function createAdmin(array $attributes)
+    {
+        $attributes['user_type'] = static::ADMIN;
+        $attributes['api_token'] = generate_token();
+
+        return static::create($attributes);
     }
 }
