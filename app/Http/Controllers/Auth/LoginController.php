@@ -56,4 +56,44 @@ class LoginController extends Controller
 
         $this->validate($request, $attributes, $messages);
     }
+
+    /**
+     * Get owner's credentials (credentials + user_type = 2).
+     *
+     * @param Request $request
+     * @return array
+     */
+    protected function ownerCredentials(Request $request)
+    {
+        $attributes = $request->only('email', 'password');
+        $attributes['user_type'] = 2;
+
+        return $attributes;
+    }
+
+    /**
+     * Get admin's credentials (credentials + user_type = 1).
+     *
+     * @param Request $request
+     * @return array
+     */
+    protected function adminCredentials(Request $request)
+    {
+        $attributes = $request->only('email', 'password');
+        $attributes['user_type'] = 1;
+
+        return $attributes;
+    }
+
+    /**
+     * Attempt login using admin's or owner's credentials.
+     * Can't login with user credentials.
+     *
+     * @param Request $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
+    {
+        return $this->guard()->attempt($this->ownerCredentials($request), $request->has('remember')) || $this->guard()->attempt($this->adminCredentials($request), $request->has('remember'));
+    }
 }
