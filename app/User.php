@@ -97,4 +97,14 @@ class User extends Authenticatable
     {
         return static::where('user_type', 1)->count();
     }
+
+    /**
+     * Check if owner account exists.
+     *
+     * @return bool
+     */
+    public static function ownerExists()
+    {
+        return static::where('user_type', 2)->count() == 1;
+    }
 }

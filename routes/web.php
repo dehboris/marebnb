@@ -11,6 +11,11 @@
 |
 */
 
+
+Route::get('/setup', function() {
+    return 'Initial admin setup!';
+})->name('setup');
+
 Route::get('/', 'DashboardController@index')->name('home');
 
 // Users resource
