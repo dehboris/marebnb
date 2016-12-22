@@ -1,12 +1,11 @@
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600);
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -1378,7 +1377,7 @@ html {
 }
 
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 14px;
   line-height: 1.6;
   color: #636b6f;
@@ -1994,7 +1993,7 @@ pre code {
   clear: both;
 }
 
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .login .window, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -2369,7 +2368,7 @@ pre code {
 }
 
 @media (min-width: 992px) {
-  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .login .window, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
     float: left;
   }
   .col-md-1 {
@@ -2381,7 +2380,7 @@ pre code {
   .col-md-3 {
     width: 25%;
   }
-  .col-md-4 {
+  .col-md-4, .login .window {
     width: 33.3333333333%;
   }
   .col-md-5 {
@@ -2498,7 +2497,7 @@ pre code {
   .col-md-offset-3 {
     margin-left: 25%;
   }
-  .col-md-offset-4 {
+  .col-md-offset-4, .login .window {
     margin-left: 33.3333333333%;
   }
   .col-md-offset-5 {
@@ -6868,7 +6867,7 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Raleway", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -7002,7 +7001,7 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -7689,125 +7688,32 @@ button.close {
   }
 }
 
-html, body, #app {
-  height: 100%;
-  padding: 10px;
-}
-
-.middle {
-  vertical-align: middle;
-}
-
-.login-page {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: #425363;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #425363, #516676);
-  background: linear-gradient(to left, #425363, #516676);
-  font-family: "Roboto", sans-serif;
+* {
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing--moz-osx-font-smoothing: grayscale;
 }
 
-.login-page .form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
-  margin-top: 150px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+body, html {
+  height: 100%;
 }
 
-.login-page .form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
+.login {
+  background: -webkit-radial-gradient(center, ellipse, #606c88, #3f4c6b);
+  background: radial-gradient(ellipse at center, #606c88, #3f4c6b);
+  min-height: 100%;
   width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
 }
 
-.login-page .form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #425363;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
+.login .window {
+  margin-top: 200px;
+  background: #FFF;
+  border: 1px solid #CCC;
+  padding: 30px;
+  box-shadow: 2px 2px 10px -3px rgba(0, 0, 0, 0.75);
 }
 
-.login-page .form button:hover, .login-page .form button:active, .login-page .form button:focus {
-  background: #2b3b4b;
-}
-
-.login-page .form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-
-.login-page .form .message a {
-  color: #4d5e6e;
-  text-decoration: none;
-}
-
-.login-page .form .register-form {
-  display: none;
-}
-
-.login-page .container {
-  position: relative;
-  z-index: 1;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.login-page .container:before, .login-page .container:after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
-.login-page .container .info {
-  margin: 50px auto;
-  text-align: center;
-}
-
-.login-page .container .info h1 {
-  margin: 0 0 15px;
-  padding: 0;
-  font-size: 36px;
-  font-weight: 300;
-  color: #1a1a1a;
-}
-
-.login-page .container .info span {
-  color: #4d4d4d;
-  font-size: 12px;
-}
-
-.login-page .container .info span a {
-  color: #000000;
-  text-decoration: none;
-}
-
-.login-page .container .info span .fa {
-  color: #EF3B3A;
+.login .window input, .login .window .input-group-addon, .login .window .alert {
+  border-radius: 0;
 }
 
 /*# sourceMappingURL=app.css.map */

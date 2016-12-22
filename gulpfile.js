@@ -1,5 +1,8 @@
 const elixir = require('laravel-elixir');
 
+require('laravel-elixir-vue-2');
+
+elixir.config.sourceMaps = false;
 
 /*
  |--------------------------------------------------------------------------
@@ -13,6 +16,6 @@ const elixir = require('laravel-elixir');
  */
 
 elixir((mix) => {
-    mix.sass('app.scss')
+    mix.sass('app.sass')
        .webpack('app.js');
 });
