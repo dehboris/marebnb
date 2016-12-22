@@ -6,6 +6,48 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * App\User
+ *
+ * @property int $id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $password
+ * @property string $street
+ * @property string $country
+ * @property string $city
+ * @property string $phone
+ * @property int $zip
+ * @property int $user_type
+ * @property \Carbon\Carbon $last_activity
+ * @property string $remember_token
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $deleted_at
+ * @property string $api_token
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $readNotifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereFirstName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereLastName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User wherePassword($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereStreet($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereCountry($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereCity($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User wherePhone($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereZip($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereUserType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereLastActivity($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereApiToken($value)
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;

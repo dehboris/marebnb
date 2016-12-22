@@ -5,6 +5,41 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Room
+ *
+ * @property int $id
+ * @property int $object_id
+ * @property int $category_id
+ * @property string $label
+ * @property float $price
+ * @property int $max_people
+ * @property int $min_people
+ * @property bool $seaside
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $deleted_at
+ * @property \Carbon\Carbon $reserved_at
+ * @property \Carbon\Carbon $reserved_until
+ * @property-read \App\Object $object
+ * @property-read \App\Category $category
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\RoomPhoto[] $photos
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservation[] $reservations
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereObjectId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereCategoryId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereLabel($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room wherePrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereMaxPeople($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereMinPeople($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereSeaside($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereReservedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Room whereReservedUntil($value)
+ * @mixin \Eloquent
+ */
 class Room extends Model
 {
     use SoftDeletes;

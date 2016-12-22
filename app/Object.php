@@ -4,6 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Object
+ *
+ * @property int $id
+ * @property string $label
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Room[] $rooms
+ * @method static \Illuminate\Database\Query\Builder|\App\Object whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Object whereLabel($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Object whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Object whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Object extends Model
 {
     /**
