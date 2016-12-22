@@ -12,7 +12,105 @@
 	-webkit-font-smoothing: antialiased
  	-moz-osx-font-smoothing: grayscale
 
-body, html
-  	height: 100%
+body
+	background: radial-gradient(ellipse at center, #606c88, #3f4c6b)
+
+.container
+	@extend .col-md-10
+	@extend .col-md-offset-1
+	margin-top: 100px
+	background: #FFF
+	border: 1px solid #CCC
+	border-radius: 0px
+	box-shadow: 2px 2px 20px 0px rgba(#333, 0.5)
+	padding: 0
+	margin-bottom: 50px
+
+header.header
+	padding: 10px
+	border-bottom: 1px solid #eee
+	@extend .row
+	margin: 0
+
+	.logo
+		@extend .col-md-3
+		padding: 0 0 0 0px
+
+	.toolbar
+		@extend .col-md-9
+		padding: 25px 0 0 0
+
+		.heading
+			@extend .col-md-9
+			padding: 0
+
+			h1
+				padding: 0
+				font-size: 20px
+				margin: 0
+				color: $brand-info
+
+		.actions
+			@extend .col-md-3
+			padding: 0 10px 0 0
+			text-align: right
+
+.sidebar
+	@extend .col-md-3
+	padding: 30px 40px
+
+	.navigation
+		h1
+			color: $brand-info
+			padding: 0 0 10px 0
+			margin: 0
+			font-size: 16px
+			letter-spacing: 0.05em
+			text-transform: uppercase
+			font-weight: 600
+
+		.list
+			@extend .list-group
+			border-radius: 0
+			margin-top: 10px
+
+			a
+				@extend .list-group-item
+				border: 0
+				border-radius: 0 !important
+				transition: all 120ms ease-in
+				border-left: 5px solid transparent
+
+				&:hover
+					background: #fff
+					transition: all 120ms ease-in
+					border-left: 5px solid $brand-info
+
+				&.active
+					background: transparent
+					border-left: 5px solid $brand-info
+					transition: all 120ms ease-in
+					color: inherit
+
+					&:hover
+						transition: all 120ms ease-in
+						color: inherit
+						background: #fff
+
+				.badge
+					background: transparent
+
+					i
+						color: $brand-info
+						font-size: 15px
+
+.main
+	@extend .col-md-9
+	padding: 30px 30px 30px 0
+	line-height: 2
+	letter-spacing: 0.01em
+
+.alert
+	border-radius: 0
 
 @import "login"

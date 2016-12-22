@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('main')
+@section('dashboard')
     <div class="panel panel-default">
         <div class="panel-heading">
             Pregled svih korisnika
@@ -19,7 +19,6 @@
                 <th>Ime i prezime</th>
                 <th>Email adresa</th>
                 <th>Status korisnika</th>
-                <th>Adresa</th>
                 <th></th>
             </tr>
             @foreach ($users as $user)
@@ -27,7 +26,6 @@
                     <td style="vertical-align: middle;">{{ $user->fullName() }}</td>
                     <td style="vertical-align: middle;">{{ $user->email }}</td>
                     <td style="vertical-align: middle;">{!! $user->role() !!}</td>
-                    <td style="vertical-align: middle;">{{ $user->street }},<br>{{ $user->zip }} {{ $user->city }}<br>{{ $user->country }}</td>
                     <td style="vertical-align: middle;">
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
                         <form action="{{ route('users.destroy', $user->id) }}" style="display: inline" method="POST">

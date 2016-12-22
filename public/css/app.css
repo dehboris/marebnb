@@ -1979,21 +1979,21 @@ pre code {
   clear: both;
 }
 
-.row {
+.row, header.header {
   margin-left: -15px;
   margin-right: -15px;
 }
 
-.row:before, .row:after {
+.row:before, header.header:before, .row:after, header.header:after {
   content: " ";
   display: table;
 }
 
-.row:after {
+.row:after, header.header:after {
   clear: both;
 }
 
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .login .window, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, header.header .logo, header.header .toolbar .actions, .sidebar, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .login .window, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, header.header .toolbar, header.header .toolbar .heading, .main, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .container, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -2368,7 +2368,7 @@ pre code {
 }
 
 @media (min-width: 992px) {
-  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .login .window, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  .col-md-1, .col-md-2, .col-md-3, header.header .logo, header.header .toolbar .actions, .sidebar, .col-md-4, .login .window, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, header.header .toolbar, header.header .toolbar .heading, .main, .col-md-10, .container, .col-md-11, .col-md-12 {
     float: left;
   }
   .col-md-1 {
@@ -2377,7 +2377,7 @@ pre code {
   .col-md-2 {
     width: 16.6666666667%;
   }
-  .col-md-3 {
+  .col-md-3, header.header .logo, header.header .toolbar .actions, .sidebar {
     width: 25%;
   }
   .col-md-4, .login .window {
@@ -2395,10 +2395,10 @@ pre code {
   .col-md-8 {
     width: 66.6666666667%;
   }
-  .col-md-9 {
+  .col-md-9, header.header .toolbar, header.header .toolbar .heading, .main {
     width: 75%;
   }
-  .col-md-10 {
+  .col-md-10, .container {
     width: 83.3333333333%;
   }
   .col-md-11 {
@@ -2488,7 +2488,7 @@ pre code {
   .col-md-offset-0 {
     margin-left: 0%;
   }
-  .col-md-offset-1 {
+  .col-md-offset-1, .container {
     margin-left: 8.3333333333%;
   }
   .col-md-offset-2 {
@@ -5637,17 +5637,17 @@ a.label:hover, a.label:focus {
   padding: 1px 5px;
 }
 
-.list-group-item.active > .badge,
+.list-group-item.active > .badge, .sidebar .navigation .list a.active > .badge,
 .nav-pills > .active > a > .badge {
   color: #3097D1;
   background-color: #fff;
 }
 
-.list-group-item > .badge {
+.list-group-item > .badge, .sidebar .navigation .list a > .badge {
   float: right;
 }
 
-.list-group-item > .badge + .badge {
+.list-group-item > .badge + .badge, .sidebar .navigation .list a > .badge + .badge {
   margin-right: 5px;
 }
 
@@ -5988,12 +5988,12 @@ a.thumbnail.active {
   list-style: none;
 }
 
-.list-group {
+.list-group, .sidebar .navigation .list {
   margin-bottom: 20px;
   padding-left: 0;
 }
 
-.list-group-item {
+.list-group-item, .sidebar .navigation .list a {
   position: relative;
   display: block;
   padding: 10px 15px;
@@ -6002,28 +6002,28 @@ a.thumbnail.active {
   border: 1px solid #d3e0e9;
 }
 
-.list-group-item:first-child {
+.list-group-item:first-child, .sidebar .navigation .list a:first-child {
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
 
-.list-group-item:last-child {
+.list-group-item:last-child, .sidebar .navigation .list a:last-child {
   margin-bottom: 0;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 
-a.list-group-item,
+a.list-group-item, .sidebar .navigation .list a,
 button.list-group-item {
   color: #555;
 }
 
-a.list-group-item .list-group-item-heading,
+a.list-group-item .list-group-item-heading, .sidebar .navigation .list a .list-group-item-heading,
 button.list-group-item .list-group-item-heading {
   color: #333;
 }
 
-a.list-group-item:hover, a.list-group-item:focus,
+a.list-group-item:hover, .sidebar .navigation .list a:hover, a.list-group-item:focus, .sidebar .navigation .list a:focus,
 button.list-group-item:hover,
 button.list-group-item:focus {
   text-decoration: none;
@@ -6036,38 +6036,38 @@ button.list-group-item {
   text-align: left;
 }
 
-.list-group-item.disabled, .list-group-item.disabled:hover, .list-group-item.disabled:focus {
+.list-group-item.disabled, .sidebar .navigation .list a.disabled, .list-group-item.disabled:hover, .sidebar .navigation .list a.disabled:hover, .list-group-item.disabled:focus, .sidebar .navigation .list a.disabled:focus {
   background-color: #eeeeee;
   color: #777777;
   cursor: not-allowed;
 }
 
-.list-group-item.disabled .list-group-item-heading, .list-group-item.disabled:hover .list-group-item-heading, .list-group-item.disabled:focus .list-group-item-heading {
+.list-group-item.disabled .list-group-item-heading, .sidebar .navigation .list a.disabled .list-group-item-heading, .list-group-item.disabled:hover .list-group-item-heading, .sidebar .navigation .list a.disabled:hover .list-group-item-heading, .list-group-item.disabled:focus .list-group-item-heading, .sidebar .navigation .list a.disabled:focus .list-group-item-heading {
   color: inherit;
 }
 
-.list-group-item.disabled .list-group-item-text, .list-group-item.disabled:hover .list-group-item-text, .list-group-item.disabled:focus .list-group-item-text {
+.list-group-item.disabled .list-group-item-text, .sidebar .navigation .list a.disabled .list-group-item-text, .list-group-item.disabled:hover .list-group-item-text, .sidebar .navigation .list a.disabled:hover .list-group-item-text, .list-group-item.disabled:focus .list-group-item-text, .sidebar .navigation .list a.disabled:focus .list-group-item-text {
   color: #777777;
 }
 
-.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+.list-group-item.active, .sidebar .navigation .list a.active, .list-group-item.active:hover, .sidebar .navigation .list a.active:hover, .list-group-item.active:focus, .sidebar .navigation .list a.active:focus {
   z-index: 2;
   color: #fff;
   background-color: #3097D1;
   border-color: #3097D1;
 }
 
-.list-group-item.active .list-group-item-heading,
-.list-group-item.active .list-group-item-heading > small,
-.list-group-item.active .list-group-item-heading > .small, .list-group-item.active:hover .list-group-item-heading,
-.list-group-item.active:hover .list-group-item-heading > small,
-.list-group-item.active:hover .list-group-item-heading > .small, .list-group-item.active:focus .list-group-item-heading,
-.list-group-item.active:focus .list-group-item-heading > small,
-.list-group-item.active:focus .list-group-item-heading > .small {
+.list-group-item.active .list-group-item-heading, .sidebar .navigation .list a.active .list-group-item-heading,
+.list-group-item.active .list-group-item-heading > small, .sidebar .navigation .list a.active .list-group-item-heading > small,
+.list-group-item.active .list-group-item-heading > .small, .sidebar .navigation .list a.active .list-group-item-heading > .small, .list-group-item.active:hover .list-group-item-heading, .sidebar .navigation .list a.active:hover .list-group-item-heading,
+.list-group-item.active:hover .list-group-item-heading > small, .sidebar .navigation .list a.active:hover .list-group-item-heading > small,
+.list-group-item.active:hover .list-group-item-heading > .small, .sidebar .navigation .list a.active:hover .list-group-item-heading > .small, .list-group-item.active:focus .list-group-item-heading, .sidebar .navigation .list a.active:focus .list-group-item-heading,
+.list-group-item.active:focus .list-group-item-heading > small, .sidebar .navigation .list a.active:focus .list-group-item-heading > small,
+.list-group-item.active:focus .list-group-item-heading > .small, .sidebar .navigation .list a.active:focus .list-group-item-heading > .small {
   color: inherit;
 }
 
-.list-group-item.active .list-group-item-text, .list-group-item.active:hover .list-group-item-text, .list-group-item.active:focus .list-group-item-text {
+.list-group-item.active .list-group-item-text, .sidebar .navigation .list a.active .list-group-item-text, .list-group-item.active:hover .list-group-item-text, .sidebar .navigation .list a.active:hover .list-group-item-text, .list-group-item.active:focus .list-group-item-text, .sidebar .navigation .list a.active:focus .list-group-item-text {
   color: #d7ebf6;
 }
 
@@ -6260,41 +6260,51 @@ button.list-group-item-danger.active:focus {
   border-bottom-left-radius: 3px;
 }
 
-.panel > .list-group,
-.panel > .panel-collapse > .list-group {
+.panel > .list-group, .sidebar .navigation .panel > .list,
+.panel > .panel-collapse > .list-group, .sidebar .navigation
+.panel > .panel-collapse > .list {
   margin-bottom: 0;
 }
 
-.panel > .list-group .list-group-item,
-.panel > .panel-collapse > .list-group .list-group-item {
+.panel > .list-group .list-group-item, .sidebar .navigation .panel > .list .list-group-item, .panel > .list-group .sidebar .navigation .list a, .sidebar .navigation .list .panel > .list-group a, .sidebar .navigation .panel > .list a,
+.panel > .panel-collapse > .list-group .list-group-item, .sidebar .navigation
+.panel > .panel-collapse > .list .list-group-item,
+.panel > .panel-collapse > .list-group .sidebar .navigation .list a, .sidebar .navigation .list
+.panel > .panel-collapse > .list-group a, .sidebar .navigation .panel > .panel-collapse > .list a {
   border-width: 1px 0;
   border-radius: 0;
 }
 
-.panel > .list-group:first-child .list-group-item:first-child,
-.panel > .panel-collapse > .list-group:first-child .list-group-item:first-child {
+.panel > .list-group:first-child .list-group-item:first-child, .sidebar .navigation .panel > .list:first-child .list-group-item:first-child, .panel > .list-group:first-child .sidebar .navigation .list a:first-child, .sidebar .navigation .list .panel > .list-group:first-child a:first-child, .sidebar .navigation .panel > .list:first-child a:first-child,
+.panel > .panel-collapse > .list-group:first-child .list-group-item:first-child, .sidebar .navigation
+.panel > .panel-collapse > .list:first-child .list-group-item:first-child,
+.panel > .panel-collapse > .list-group:first-child .sidebar .navigation .list a:first-child, .sidebar .navigation .list
+.panel > .panel-collapse > .list-group:first-child a:first-child, .sidebar .navigation .panel > .panel-collapse > .list:first-child a:first-child {
   border-top: 0;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
 
-.panel > .list-group:last-child .list-group-item:last-child,
-.panel > .panel-collapse > .list-group:last-child .list-group-item:last-child {
+.panel > .list-group:last-child .list-group-item:last-child, .sidebar .navigation .panel > .list:last-child .list-group-item:last-child, .panel > .list-group:last-child .sidebar .navigation .list a:last-child, .sidebar .navigation .list .panel > .list-group:last-child a:last-child, .sidebar .navigation .panel > .list:last-child a:last-child,
+.panel > .panel-collapse > .list-group:last-child .list-group-item:last-child, .sidebar .navigation
+.panel > .panel-collapse > .list:last-child .list-group-item:last-child,
+.panel > .panel-collapse > .list-group:last-child .sidebar .navigation .list a:last-child, .sidebar .navigation .list
+.panel > .panel-collapse > .list-group:last-child a:last-child, .sidebar .navigation .panel > .panel-collapse > .list:last-child a:last-child {
   border-bottom: 0;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
-.panel > .panel-heading + .panel-collapse > .list-group .list-group-item:first-child {
+.panel > .panel-heading + .panel-collapse > .list-group .list-group-item:first-child, .sidebar .navigation .panel > .panel-heading + .panel-collapse > .list .list-group-item:first-child, .panel > .panel-heading + .panel-collapse > .list-group .sidebar .navigation .list a:first-child, .sidebar .navigation .list .panel > .panel-heading + .panel-collapse > .list-group a:first-child, .sidebar .navigation .panel > .panel-heading + .panel-collapse > .list a:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
 
-.panel-heading + .list-group .list-group-item:first-child {
+.panel-heading + .list-group .list-group-item:first-child, .sidebar .navigation .panel-heading + .list .list-group-item:first-child, .panel-heading + .list-group .sidebar .navigation .list a:first-child, .sidebar .navigation .list .panel-heading + .list-group a:first-child, .sidebar .navigation .panel-heading + .list a:first-child {
   border-top-width: 0;
 }
 
-.list-group + .panel-footer {
+.list-group + .panel-footer, .sidebar .navigation .list + .panel-footer {
   border-top-width: 0;
 }
 
@@ -6475,7 +6485,9 @@ button.list-group-item-danger.active:focus {
 }
 
 .panel-group .panel-heading + .panel-collapse > .panel-body,
-.panel-group .panel-heading + .panel-collapse > .list-group {
+.panel-group .panel-heading + .panel-collapse > .list-group,
+.panel-group .sidebar .navigation .panel-heading + .panel-collapse > .list, .sidebar .navigation
+.panel-group .panel-heading + .panel-collapse > .list {
   border-top: 1px solid #d3e0e9;
 }
 
@@ -7693,8 +7705,117 @@ button.close {
   -webkit-font-smoothing--moz-osx-font-smoothing: grayscale;
 }
 
-body, html {
-  height: 100%;
+body {
+  background: -webkit-radial-gradient(center, ellipse, #606c88, #3f4c6b);
+  background: radial-gradient(ellipse at center, #606c88, #3f4c6b);
+}
+
+.container {
+  margin-top: 100px;
+  background: #FFF;
+  border: 1px solid #CCC;
+  border-radius: 0px;
+  box-shadow: 2px 2px 20px 0px rgba(51, 51, 51, 0.5);
+  padding: 0;
+  margin-bottom: 50px;
+}
+
+header.header {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  margin: 0;
+}
+
+header.header .logo {
+  padding: 0 0 0 0px;
+}
+
+header.header .toolbar {
+  padding: 25px 0 0 0;
+}
+
+header.header .toolbar .heading {
+  padding: 0;
+}
+
+header.header .toolbar .heading h1 {
+  padding: 0;
+  font-size: 20px;
+  margin: 0;
+  color: #8eb4cb;
+}
+
+header.header .toolbar .actions {
+  padding: 0 10px 0 0;
+  text-align: right;
+}
+
+.sidebar {
+  padding: 30px 40px;
+}
+
+.sidebar .navigation h1 {
+  color: #8eb4cb;
+  padding: 0 0 10px 0;
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.sidebar .navigation .list {
+  border-radius: 0;
+  margin-top: 10px;
+}
+
+.sidebar .navigation .list a {
+  border: 0;
+  border-radius: 0 !important;
+  -webkit-transition: all 120ms ease-in;
+  transition: all 120ms ease-in;
+  border-left: 5px solid transparent;
+}
+
+.sidebar .navigation .list a:hover {
+  background: #fff;
+  -webkit-transition: all 120ms ease-in;
+  transition: all 120ms ease-in;
+  border-left: 5px solid #8eb4cb;
+}
+
+.sidebar .navigation .list a.active {
+  background: transparent;
+  border-left: 5px solid #8eb4cb;
+  -webkit-transition: all 120ms ease-in;
+  transition: all 120ms ease-in;
+  color: inherit;
+}
+
+.sidebar .navigation .list a.active:hover {
+  -webkit-transition: all 120ms ease-in;
+  transition: all 120ms ease-in;
+  color: inherit;
+  background: #fff;
+}
+
+.sidebar .navigation .list a .badge {
+  background: transparent;
+}
+
+.sidebar .navigation .list a .badge i {
+  color: #8eb4cb;
+  font-size: 15px;
+}
+
+.main {
+  padding: 30px 30px 30px 0;
+  line-height: 2;
+  letter-spacing: 0.01em;
+}
+
+.alert {
+  border-radius: 0;
 }
 
 .login {
