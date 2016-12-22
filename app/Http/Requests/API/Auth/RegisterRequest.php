@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
+use Log;
 
 class RegisterRequest extends FormRequest
 {
@@ -45,7 +46,7 @@ class RegisterRequest extends FormRequest
      */
     public function forbiddenResponse()
     {
-        return new JsonResponse(['errors' => 'Već ste prijavljeni.', 'api_token' => null], 200);
+        return new JsonResponse(['data' => 'Već ste prijavljeni.'], 400);
     }
 
     /**
@@ -56,7 +57,7 @@ class RegisterRequest extends FormRequest
      */
     protected function formatErrors(Validator $validator)
     {
-        return ['api_token' => null, 'errors' => $validator->errors()->first()];
+        return ['data' => $validator->errors()->first()];
     }
 
     /**
@@ -68,7 +69,7 @@ class RegisterRequest extends FormRequest
     public function response(array $errors)
     {
         if ($this->expectsJson()) {
-            return new JsonResponse($errors, 200);
+            return new JsonResponse($errors, 400);
         }
 
         return $this->redirector->to($this->getRedirectUrl())

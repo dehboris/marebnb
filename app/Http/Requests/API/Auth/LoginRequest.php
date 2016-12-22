@@ -39,7 +39,7 @@ class LoginRequest extends FormRequest
      */
     public function forbiddenResponse()
     {
-        return new JsonResponse(['errors' => 'Već ste prijavljeni.'], 403);
+        return new JsonResponse(['data' => 'Već ste prijavljeni.'], 400);
     }
 
     /**
@@ -50,23 +50,6 @@ class LoginRequest extends FormRequest
      */
     protected function formatErrors(Validator $validator)
     {
-        return ['api_token' => null, 'errors' => $validator->errors()->first()];
-    }
-
-    /**
-     * Get the proper failed validation response for the request.
-     *
-     * @param  array  $errors
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function response(array $errors)
-    {
-        if ($this->expectsJson()) {
-            return new JsonResponse($errors, 200);
-        }
-
-        return $this->redirector->to($this->getRedirectUrl())
-            ->withInput($this->except($this->dontFlash))
-            ->withErrors($errors, $this->errorBag);
+        return ['data' => $validator->errors()->first()];
     }
 }

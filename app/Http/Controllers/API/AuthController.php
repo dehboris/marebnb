@@ -19,9 +19,9 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (Auth::validate($request->only('email', 'password'))) {
-            return response()->json(['api_token' => User::getTokenFor($request->get('email')), 'errors' => null]);
+            return response()->json(['data' => User::getTokenFor($request->get('email'))]);
         } else {
-            return response()->json(['api_token' => null, 'errors' => 'E-mail ili lozinka nisu ispravni.']);
+            return response()->json(['data' => 'E-mail ili lozinka nisu ispravni.'], 400);
         }
     }
 
@@ -36,8 +36,9 @@ class AuthController extends Controller
         // Create new User instance and persist it to the database
         $user = User::createUser($request->all());
 
-        $message = $user ? ['api_token' => (string) $user->api_token, 'errors' => null] : ['errors' => 'Greška u sustavu.', 'api_token' => null];
+        $code = $user ? 200 : 400;
+        $message = $user ? ['data' => $user->api_token] : ['data' => 'Greška u sustavu.'];
 
-        return response()->json($message);
+        return response()->json($message, $code);
     }
 }

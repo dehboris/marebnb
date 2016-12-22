@@ -35,6 +35,16 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], fu
     Route::delete('/{id}', 'UsersController@destroy')->name('destroy')->where('id', '[0-9]+')->middleware('owner');
 });
 
+// Reservations resource
+Route::group(['prefix' => 'reservations', 'middleware' => 'auth', 'as' => 'reservations.'], function () {
+    Route::get('/', 'ReservationsController@index')->name('index');
+});
+
+// Rooms resource
+Route::group(['prefix' => 'rooms', 'middleware' => 'auth', 'as' => 'rooms.'], function () {
+    Route::get('/', 'RoomsController@index')->name('index');
+});
+
 // Objects resource
 Route::group(['prefix' => 'objects', 'middleware' => 'auth', 'as' => 'objects.'], function () {
     Route::get('/', 'ObjectsController@index')->name('index');

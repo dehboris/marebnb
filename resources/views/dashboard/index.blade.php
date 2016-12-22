@@ -8,8 +8,8 @@
 
     <ul class="list-unstyled">
         <li><a href="{{ route('users.index') }}">Korisnici</a></li>
-        <li><a href="#">Smještajne jedinice</a></li>
-        <li><a href="#">Rezervacije</a></li>
+        <li><a href="{{ route('rooms.index') }}">Smještajne jedinice</a></li>
+        <li><a href="{{ route('reservations.index') }}">Rezervacije</a></li>
         <li><a href="{{ route('objects.index') }}">Objekti</a></li>
         <li><a href="{{ route('categories.index') }}">Kategorije</a></li>
     </ul>
