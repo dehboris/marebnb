@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
-@section('main')
-    <div class="col-md-6">
+@section('dashboard')
+    <div class="col-md-10">
         <form class="form-horizontal" method="POST" action="{{ route('users.store') }}">
             {{ csrf_field() }}
 
@@ -124,7 +124,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">
-                    <button type="submit" class="btn btn-primary">Napravi korisnika</button>
+                    <button type="submit" class="btn btn-primary btn-block">Napravi korisnika</button>
                 </div>
             </div>
         </form>

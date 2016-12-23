@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
-@section('main')
-    <div class="col-md-6">
+@section('dashboard')
+    <div class="col-md-10">
         <form class="form-horizontal" method="POST" action="{{ route('users.update', $user->id) }}">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
@@ -112,7 +112,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">
-                    <button type="submit" class="btn btn-primary">Uredi korisnika</button>
+                    <button type="submit" class="btn btn-primary btn-block">Uredi korisnika</button>
                 </div>
             </div>
         </form>

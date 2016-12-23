@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -147,5 +148,54 @@ class Room extends Model
         };
 
         return static::all()->transform($roomTransformer)->values();
+    }
+
+    /**
+     * Return reserved_at column as a Carbon instance.
+     *
+     * @param $date
+     * @return Carbon
+     */
+    public function getReservedAtAttribute($date)
+    {
+        return Carbon::parse($date);
+    }
+
+    /**
+     * Return reserved_until column as a Carbon instance.
+     *
+     * @param $date
+     * @return Carbon
+     */
+    public function getReservedUntilAttribute($date)
+    {
+        return Carbon::parse($date);
+    }
+
+    /**
+     * Check if room is reserved right now.
+     *
+     * @return bool
+     */
+    public function isReserved()
+    {
+        $now = Carbon::now();
+
+        return $this->reserved_at->gte($now) && $this->reserved_until->lte($now);
+    }
+
+    /**
+     * Reserve a room.
+     *
+     * @param Carbon $date_start Starting date
+     * @param Carbon $date_end   Ending date
+     * @return bool
+     */
+    public function reserve(Carbon $date_start, Carbon $date_end)
+    {
+        return $this->update([
+            'reserved_at'    => $date_start,
+            'reserved_until' => $date_end,
+        ]);
     }
 }

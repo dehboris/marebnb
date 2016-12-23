@@ -43,6 +43,10 @@ Route::group(['prefix' => 'reservations', 'middleware' => 'auth', 'as' => 'reser
 // Rooms resource
 Route::group(['prefix' => 'rooms', 'middleware' => 'auth', 'as' => 'rooms.'], function () {
     Route::get('/', 'RoomsController@index')->name('index');
+
+    // Create and store the room
+    Route::get('/create', 'RoomsController@create')->name('create')->middleware('owner');
+    Route::post('/', 'RoomsController@store')->name('store')->middleware('owner');
 });
 
 // Objects resource

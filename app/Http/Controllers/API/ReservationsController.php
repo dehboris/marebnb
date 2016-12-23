@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReservationRequest;
 use App\Reservation;
+use App\Room;
 use Auth;
 use Carbon\Carbon;
 
@@ -19,6 +20,12 @@ class ReservationsController extends Controller
     public function store(StoreReservationRequest $request)
     {
         $user = Auth::guard('api')->user();
+        $room = Room::find($request->get('room_id'));
+
+        // Room not found? Respond with a 404.
+        if (!$room) {
+            return response()->json(['errors' => 'Soba nije pronađena.'], 404);
+        }
 
         // Find all approved reservations for this room.
         $reservations = Reservation::whereNotNull('approved_at')->where('room_id', $request->get('room_id'))->get();
@@ -35,9 +42,11 @@ class ReservationsController extends Controller
         $attributes = $request->all();
         $attributes['user_id'] = $user->id;
         $attributes['approved_at'] = null;
-        $newReservation = Reservation::create($attributes);
+        $reservation = Reservation::create($attributes);
 
-        if ($newReservation) {
+        if ($reservation) {
+            $room->reserve($reservation->date_start, $reservation->date_end);
+
             return response()->json(['success' => 'Rezervacija uspješna.']);
         } else {
             return response()->json(['errors' => 'Greška u sustavu.'], 400);
