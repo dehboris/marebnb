@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
-@section('main')
-    <div class="col-md-6">
+@section('dashboard')
+    <div class="col-md-10">
         <form class="form-horizontal" method="POST" action="{{ route('categories.store') }}">
             {{ csrf_field() }}
 
