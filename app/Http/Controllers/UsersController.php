@@ -123,6 +123,6 @@ class UsersController extends Controller
 
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'Uspješno ste obrisali korisnika te sve rezervacije asocirane za taj objekt.');
+        return redirect()->route('users.index')->with('success', 'Uspješno ste obrisali korisnika te sve rezervacije asocirane za tog korisnika.');
     }
 }

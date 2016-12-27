@@ -47,6 +47,13 @@ Route::group(['prefix' => 'rooms', 'middleware' => 'auth', 'as' => 'rooms.'], fu
     // Create and store the room
     Route::get('/create', 'RoomsController@create')->name('create')->middleware('owner');
     Route::post('/', 'RoomsController@store')->name('store')->middleware('owner');
+
+    // Edit and update the room
+    Route::get('/{id}', 'RoomsController@edit')->name('edit')->where('id', '[0-9]+')->middleware('owner');
+    Route::put('/{id}', 'RoomsController@update')->name('update')->where('id', '[0-9]+')->middleware('owner');
+
+    // Delete the resource
+    Route::delete('/{id}', 'RoomsController@destroy')->name('destroy')->where('id', '[0-9]+')->middleware('owner');
 });
 
 // Objects resource

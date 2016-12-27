@@ -51,9 +51,8 @@
                         <span class="label label-warning">Nije rezervirano</span></td>
                     @endif
                     <td style="vertical-align: middle;">
-                        <a href="{{ route('users.edit', $room->id) }}" class="btn btn-info"><i
-                                    class="fa fa-edit"></i></a>
-                        <form action="{{ route('users.destroy', $room->id) }}" style="display: inline" method="POST">
+                        <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                        <form action="{{ route('rooms.destroy', $room->id) }}" style="display: inline" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
