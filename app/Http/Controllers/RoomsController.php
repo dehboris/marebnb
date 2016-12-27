@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Http\Requests\CreateRoomRequest;
+use App\Http\Requests\Rooms\CreateRoomRequest;
 use App\Object;
 use App\Room;
 use App\RoomPhoto;

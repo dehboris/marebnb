@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Storage;
 
 /**
  * App\Room
@@ -121,14 +122,14 @@ class Room extends Model
         // Only show start date and end date of the reservation
         $reservationsTransformer = function ($reservation) {
             return [
-                'start' => $reservation->date_start->timestamp,
-                'end'   => $reservation->date_end->timestamp
+                'start' => $reservation->date_start->format('d/m/Y'),
+                'end'   => $reservation->date_end->format('d/m/Y')
             ];
         };
 
         // Transform photos collection and only show photo URL
         $photoFilenameTransformer = function ($photo) {
-            return $photo->filename;
+            return Storage::url('rooms/' . $photo->room_id . '/' . $photo->filename);
         };
 
         // Transform room

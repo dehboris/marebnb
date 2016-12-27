@@ -42,7 +42,7 @@ class StoreReservationRequest extends FormRequest
      */
     public function forbiddenResponse()
     {
-        return new JsonResponse(['errors' => 'Niste prijavljeni.'], 403);
+        return new JsonResponse(['data' => 'Niste prijavljeni.'], 403);
     }
 
     /**
@@ -53,6 +53,6 @@ class StoreReservationRequest extends FormRequest
      */
     protected function formatErrors(Validator $validator)
     {
-        return ['errors' => $validator->errors()->first()];
+        return ['data' => $validator->errors()->first()];
     }
 }

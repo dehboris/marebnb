@@ -15,7 +15,7 @@ Route::get('/rooms', 'RoomsController@index');
 Route::get('/rooms/{id}', 'RoomsController@show')->where('id', '[0-9]+');
 
 // Create a new reservation
-Route::post('/rooms', 'ReservationsController@store')->where('id', '[0-9]+')->middleware('auth:api');
+Route::post('/rooms', 'ReservationsController@store')->middleware('auth:api');
 
 Route::get('test', function() { return 'logiran'; })->middleware('auth:api');
 
