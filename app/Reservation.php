@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Auth;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 /**
  * App\Reservation
@@ -71,5 +74,63 @@ class Reservation extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * The 'room is reserved in this term' condition.
+     *
+     * @param string $dateStart Start date in a d/m/Y format
+     * @param string $dateEnd   End date in a d/m/Y format
+     * @return bool
+     */
+    public function isReserved($dateStart, $dateEnd)
+    {
+        $dateStart = Carbon::createFromFormat('d/m/Y', $dateStart);
+        $dateEnd = Carbon::createFromFormat('d/m/Y', $dateEnd);
+
+        return ($dateStart->gte($this->date_start) && $dateStart->lte($this->date_end)) || ($dateEnd->gte($this->date_start) && $dateEnd->lte($this->date_end)) || ($dateStart->lt($this->date_start) && $dateEnd->gt($this->date_end));
+    }
+
+    /**
+     * Create new reservation. Accepts Request object which then parses to create new instance of the class and
+     * persists it to the database.
+     *
+     * @param Request $request Input attributes
+     * @return static
+     */
+    public static function createFromRequest(Request $request)
+    {
+        $attributes = $request->all();
+        $attributes['user_id'] = Auth::guard('api')->user()->id;
+        $attributes['approved_at'] = null;
+        $attributes['need_parking'] = $request->has('need_parking');
+        $attributes['need_tv'] = $request->has('need_tv');
+        $attributes['need_wifi'] = $request->has('need_wifi');
+        $attributes['date_start'] = Carbon::createFromFormat('d/m/Y', $request->get('date_start'));
+        $attributes['date_end'] = Carbon::createFromFormat('d/m/Y', $request->get('date_end'));
+
+        return static::create($attributes);
+    }
+
+    /**
+     * approved() scope. Finds all columns whose 'approved_at' value not null.
+     *
+     * @param mixed $q Query
+     * @return mixed
+     */
+    public static function scopeApproved($q)
+    {
+        return $q->whereNotNull('approved_at');
+    }
+
+    /**
+     * Find all approved reservations for a room.
+     *
+     * @param int $id Room ID
+     * @return mixed
+     */
+    public static function allApproved($id)
+    {
+        return static::approved()->where('room_id', $id)->get();
     }
 }

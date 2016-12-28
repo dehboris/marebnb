@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API\Reservations;
 
 use Auth;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
+use Log;
 
 class StoreReservationRequest extends FormRequest
 {
@@ -16,6 +17,8 @@ class StoreReservationRequest extends FormRequest
      */
     public function authorize()
     {
+        Log::info('Status logiranja: ' . Auth::guard('api')->check());
+
         return Auth::guard('api')->check();
     }
 
@@ -53,6 +56,8 @@ class StoreReservationRequest extends FormRequest
      */
     protected function formatErrors(Validator $validator)
     {
+        Log::info($validator->errors());
+
         return ['data' => $validator->errors()->first()];
     }
 }
