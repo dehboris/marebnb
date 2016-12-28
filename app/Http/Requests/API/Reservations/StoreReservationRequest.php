@@ -17,8 +17,6 @@ class StoreReservationRequest extends FormRequest
      */
     public function authorize()
     {
-        Log::info('Status logiranja: ' . Auth::guard('api')->check());
-
         return Auth::guard('api')->check();
     }
 
@@ -56,8 +54,6 @@ class StoreReservationRequest extends FormRequest
      */
     protected function formatErrors(Validator $validator)
     {
-        Log::info($validator->errors());
-
         return ['data' => $validator->errors()->first()];
     }
 }

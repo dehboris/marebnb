@@ -17,15 +17,11 @@ class ReservationsController extends Controller
      */
     public function store(StoreReservationRequest $request)
     {
-        \Log::info($request);
-
-        // TODO: status codes
-
         $room = Room::find($request->get('room_id'));
 
         // Room not found? Respond with a 404.
         if (!$room) {
-            return response()->json(['data' => 'Soba nije pronađena.'], 200);
+            return response()->json(['data' => 'Soba nije pronađena.'], 404);
         }
 
         // Find all approved reservations for this room.
@@ -34,7 +30,7 @@ class ReservationsController extends Controller
         foreach ($reservations as $reservation) {
             // Room is already reserved?
             if ($reservation->isReserved($request->get('date_start'), $request->get('date_end'))) {
-                return response()->json(['data' => 'Soba je već rezervirana u ovom terminu.']);
+                return response()->json(['data' => 'Soba je već rezervirana u ovom terminu.'], 401);
             }
         }
 
@@ -46,7 +42,7 @@ class ReservationsController extends Controller
 
             return response()->json(['data' => 'Rezervacija uspješna.']);
         } else {
-            return response()->json(['data' => 'Greška u sustavu.']);
+            return response()->json(['data' => 'Greška u sustavu.'], 400);
         }
     }
 }
