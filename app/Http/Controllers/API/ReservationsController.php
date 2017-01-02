@@ -25,6 +25,11 @@ class ReservationsController extends Controller
             return response()->json(['data' => 'Soba nije pronađena.'], 404);
         }
 
+        // Reservation is out of range?
+        if (Reservation::isOutOfRange($request->get('date_start'), $request->get('date_end'))) {
+            return response()->json(['data' => 'Soba se ne može rezervirati u ovom terminu.'], 401);
+        }
+
         // Find all approved reservations for this room.
         $reservations = Reservation::allApproved($request->get('room_id'));
 

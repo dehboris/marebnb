@@ -92,6 +92,21 @@ class Reservation extends Model
     }
 
     /**
+     * Check if reservation dates are not out of range (all rooms are available 1.5 - 30.9).
+     *
+     * @param string $dateStart Start date in a d/m/Y format
+     * @param string $dateEnd   End date in a d/m/Y format
+     * @return bool
+     */
+    public static function isOutOfRange($dateStart, $dateEnd)
+    {
+        $dateStart = Carbon::createFromFormat('d/m/Y', $dateStart);
+        $dateEnd = Carbon::createFromFormat('d/m/Y', $dateEnd);
+
+        return $dateStart->lt(Carbon::create($dateStart->year, 5, 1)) || $dateEnd->gt(Carbon::create($dateStart->year, 9, 30));
+    }
+
+    /**
      * Create new reservation. Accepts Request object which then parses to create new instance of the class and
      * persists it to the database.
      *
