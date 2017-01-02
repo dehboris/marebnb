@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\Users\UserWasRegistered;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Auth\LoginRequest;
 use App\Http\Requests\API\Auth\RegisterRequest;
@@ -35,6 +36,8 @@ class AuthController extends Controller
     {
         // Create new User instance and persist it to the database
         $user = User::createUser($request->all());
+
+        event(new UserWasRegistered($user));
 
         $code = $user ? 200 : 400;
         $message = $user ? ['data' => $user->api_token] : ['data' => 'Greška u sustavu.'];

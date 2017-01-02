@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('street');
             $table->string('country');
             $table->string('city');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->integer('zip');
             $table->smallInteger('user_type');
             $table->timestamp('last_activity')->nullable();

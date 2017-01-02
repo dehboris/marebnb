@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Reservations\RoomWasReserved' => [
             'App\Listeners\Reservations\SendMailToUser',
         ],
+        'App\Events\Users\UserWasRegistered' => [
+            'App\Listeners\Users\SendWelcomeMail',
+        ],
     ];
 
     /**
