@@ -39,7 +39,7 @@
                                 class="fa fa-user"></i> {{ $room->max_people }}</td>
                     <td style="vertical-align: middle;">
                         @if ($room->seaside)
-                            <i class="fa fa-sun-o"></i>
+                            <i class="fa fa-anchor"></i>
                         @else
                             <i class="fa fa-tree"></i>
                         @endif

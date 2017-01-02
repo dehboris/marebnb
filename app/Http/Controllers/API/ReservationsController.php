@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\Reservations\RoomWasReserved;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Reservations\StoreReservationRequest;
 use App\Reservation;
@@ -39,6 +40,9 @@ class ReservationsController extends Controller
 
         if ($reservation) {
             $room->reserve($reservation->date_start, $reservation->date_end);
+
+            // Dispatch the RoomWasReserved event and run all event listeners
+            event(new RoomWasReserved($reservation));
 
             return response()->json(['data' => 'Rezervacija uspješna.']);
         } else {

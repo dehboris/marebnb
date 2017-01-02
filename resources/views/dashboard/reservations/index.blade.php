@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('main')
+@section('dashboard')
     <div class="panel panel-default">
         <div class="panel-heading">
             Pregled svih rezervacija
