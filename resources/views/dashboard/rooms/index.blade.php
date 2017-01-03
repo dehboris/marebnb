@@ -47,16 +47,13 @@
                     <td style="vertical-align: middle;">
                         @if ($room->isReserved())
                             <span class="label label-success">Rezervirano</span></td>
-                    @else
-                        <span class="label label-warning">Nije rezervirano</span></td>
-                    @endif
+                        @else
+                            <span class="label label-warning">Nije rezervirano</span></td>
+                        @endif
                     <td style="vertical-align: middle;">
-                        <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                        <form action="{{ route('rooms.destroy', $room->id) }}" style="display: inline" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                        </form>
+                        @if (Auth::user()->isOwner())
+                        <a href="{{ route('rooms.edit', $room->id) }}" class="btn"><i class="fa fa-edit"></i></a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

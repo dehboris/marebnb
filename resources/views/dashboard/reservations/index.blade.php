@@ -18,7 +18,7 @@
             </tr>
             @foreach ($reservations as $reservation)
                 <tr>
-                    <td style="vertical-align: middle;"><a href="#">{{ $reservation->room->label }} &rarr;</a></td>
+                    <td style="vertical-align: middle;"><a href="{{ route('rooms.edit', $reservation->room_id) }}">{{ $reservation->room->label }} &rarr;</a></td>
                     <td style="vertical-align: middle;">{{ $reservation->user->fullName() }}</td>
                     <td style="vertical-align: middle;">{{ $reservation->date_start->format('d/m/Y') }} - {{ $reservation->date_end->format('d/m/Y') }}</td>
                     <td style="vertical-align: middle;"><i class="fa fa-user"></i> {{ $reservation->adults }}&nbsp;&nbsp;&nbsp;<i class="fa fa-child"></i> {{ $reservation->children }}</td>
@@ -37,12 +37,7 @@
                     </td>
                 <td style="vertical-align: middle;">{!! $reservation->approved_at ? '<span class="label label-success">Prihvaćena</span>' : '<span class="label label-warning">Čeka na obradu</span>' !!}</td>
                     <td style="vertical-align: middle;">
-                        <a href="{{ route('users.edit', $reservation->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                        <form action="{{ route('users.destroy', $reservation->id) }}" style="display: inline" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                        </form>
+                        <a href="{{ route('reservations.edit', $reservation->id) }}" class="btn btn-xs"><i class="fa fa-edit"></i></a>
                     </td>
                 </tr>
             @endforeach

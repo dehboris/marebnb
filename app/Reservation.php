@@ -85,8 +85,13 @@ class Reservation extends Model
      */
     public function isReserved($dateStart, $dateEnd)
     {
-        $dateStart = Carbon::createFromFormat('d/m/Y', $dateStart);
-        $dateEnd = Carbon::createFromFormat('d/m/Y', $dateEnd);
+        if (!$dateStart instanceof Carbon) {
+            $dateStart = Carbon::createFromFormat('d/m/Y', $dateStart);
+        }
+
+        if (!$dateEnd instanceof Carbon) {
+            $dateEnd = Carbon::createFromFormat('d/m/Y', $dateEnd);
+        }
 
         return ($dateStart->gte($this->date_start) && $dateStart->lte($this->date_end)) || ($dateEnd->gte($this->date_start) && $dateEnd->lte($this->date_end)) || ($dateStart->lt($this->date_start) && $dateEnd->gt($this->date_end));
     }
@@ -100,8 +105,13 @@ class Reservation extends Model
      */
     public static function isOutOfRange($dateStart, $dateEnd)
     {
-        $dateStart = Carbon::createFromFormat('d/m/Y', $dateStart);
-        $dateEnd = Carbon::createFromFormat('d/m/Y', $dateEnd);
+        if (!$dateStart instanceof Carbon) {
+            $dateStart = Carbon::createFromFormat('d/m/Y', $dateStart);
+        }
+
+        if (!$dateEnd instanceof Carbon) {
+            $dateEnd = Carbon::createFromFormat('d/m/Y', $dateEnd);
+        }
 
         return $dateStart->lt(Carbon::create($dateStart->year, 5, 1)) || $dateEnd->gt(Carbon::create($dateStart->year, 9, 30));
     }
@@ -147,5 +157,77 @@ class Reservation extends Model
     public static function allApproved($id)
     {
         return static::approved()->where('room_id', $id)->get();
+    }
+
+    /**
+     * Check if reservation is approved or not (approved_at != null).
+     *
+     * @return bool
+     */
+    public function isApproved()
+    {
+        return !is_null($this->approved_at);
+    }
+
+    /**
+     * Handle the reservation. Accept it or deny it. Also check if room is reserved in this date range.
+     *
+     * @param bool $accepted Accept it or not?
+     * @return bool
+     */
+    public function handle(bool $accepted)
+    {
+        if ($this->isApproved()) {
+            return false;
+        }
+
+        if ($accepted) {
+            if (static::alreadyReservedInDates($this->date_start, $this->date_end, $this->room_id, $this->id)) {
+                return false;
+            }
+
+            $this->update([
+                'approved_at' => Carbon::now()
+            ]);
+
+            return true;
+        } else {
+            $this->delete();
+
+            return true;
+        }
+    }
+
+    /**
+     * Check if room is reserved in selected days.
+     *
+     * @param $dateStart
+     * @param $dateEnd
+     * @param $roomID
+     * @param null $id
+     * @return bool
+     */
+    public static function alreadyReservedInDates($dateStart, $dateEnd, $roomID, $id = null)
+    {
+        if (!$dateStart instanceof Carbon) {
+            $dateStart = Carbon::createFromFormat('d/m/Y', $dateStart);
+        }
+
+        if (!$dateEnd instanceof Carbon) {
+            $dateEnd = Carbon::createFromFormat('d/m/Y', $dateEnd);
+        }
+
+        $reservations = Reservation::allApproved($roomID);
+
+        foreach ($reservations as $reservation) {
+            if ($reservation->id == $id) continue;
+
+            // Room is already reserved?
+            if ($reservation->isReserved($dateStart, $dateEnd)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

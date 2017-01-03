@@ -30,14 +30,8 @@ class ReservationsController extends Controller
             return response()->json(['data' => 'Soba se ne može rezervirati u ovom terminu.'], 401);
         }
 
-        // Find all approved reservations for this room.
-        $reservations = Reservation::allApproved($request->get('room_id'));
-
-        foreach ($reservations as $reservation) {
-            // Room is already reserved?
-            if ($reservation->isReserved($request->get('date_start'), $request->get('date_end'))) {
-                return response()->json(['data' => 'Soba je već rezervirana u ovom terminu.'], 401);
-            }
+        if (Reservation::alreadyReservedInDates($request->get('date_start'), $request->get('date_end'), $request->get('room_id'))) {
+            return response()->json(['data' => 'Soba je već rezervirana u ovom terminu.'], 401);
         }
 
         // Create new Reservation instance based from the request input

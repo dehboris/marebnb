@@ -38,6 +38,15 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth', 'as' => 'users.'], fu
 // Reservations resource
 Route::group(['prefix' => 'reservations', 'middleware' => 'auth', 'as' => 'reservations.'], function () {
     Route::get('/', 'ReservationsController@index')->name('index');
+
+    Route::post('/{id}', 'ReservationsController@handle')->name('handle')->where('id', '[0-9]+');
+
+    // Edit and update the reservation
+    Route::get('/{id}', 'ReservationsController@edit')->name('edit')->where('id', '[0-9]+');
+    Route::put('/{id}', 'ReservationsController@update')->name('update')->where('id', '[0-9]+');
+
+    // Destroy the resource
+    Route::delete('/{id}', 'ReservationsController@destroy')->name('destroy')->where('id', '[0-9]+')->middleware('owner');
 });
 
 // Rooms resource

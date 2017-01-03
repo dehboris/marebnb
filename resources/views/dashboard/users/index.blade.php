@@ -27,12 +27,7 @@
                     <td style="vertical-align: middle;">{{ $user->email }}</td>
                     <td style="vertical-align: middle;">{!! $user->role() !!}</td>
                     <td style="vertical-align: middle;">
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                        <form action="{{ route('users.destroy', $user->id) }}" style="display: inline" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                        </form>
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn"><i class="fa fa-edit"></i></a>
                     </td>
                 </tr>
             @endforeach

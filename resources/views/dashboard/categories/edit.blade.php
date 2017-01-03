@@ -21,7 +21,20 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">
-                    <button type="submit" class="btn btn-primary">Uredi kategoriju</button>
+                    <button type="submit" class="btn btn-primary btn-block">Uredi kategoriju</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-10" style="border-top: 1px solid #eee; margin-top: 10px; padding-top: 30px">
+        <form class="form-horizontal" method="POST" action="{{ route('categories.destroy', $category->id) }}">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-danger btn-block">Obriši kategoriju</button>
                 </div>
             </div>
         </form>
