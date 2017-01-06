@@ -129,7 +129,7 @@ class Room extends Model
 
         // Transform photos collection and only show photo URL
         $photoFilenameTransformer = function ($photo) {
-            return Storage::url('rooms/' . $photo->room_id . '/' . $photo->filename);
+            return ltrim(Storage::url('rooms/' . $photo->room_id . '/' . $photo->filename), '/');
         };
 
         // Transform room

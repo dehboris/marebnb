@@ -27,7 +27,7 @@ class ReservationsController extends Controller
 
         // Reservation is out of range?
         if (Reservation::isOutOfRange($request->get('date_start'), $request->get('date_end'))) {
-            return response()->json(['data' => 'Soba se ne može rezervirati u ovom terminu.'], 401);
+            return response()->json(['data' => 'Radno vrijeme turističkog naselja je od 1.5. do 30.9 u godini.'], 401);
         }
 
         if (Reservation::alreadyReservedInDates($request->get('date_start'), $request->get('date_end'), $request->get('room_id'))) {
@@ -41,7 +41,7 @@ class ReservationsController extends Controller
             $room->reserve($reservation->date_start, $reservation->date_end);
 
             // Dispatch the RoomWasReserved event and run all event listeners
-            event(new RoomWasReserved($reservation));
+            // event(new RoomWasReserved($reservation));
 
             return response()->json(['data' => 'Rezervacija uspješna.']);
         } else {

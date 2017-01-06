@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder
      *
      * @var array
      */
-    private $tables = ['objects', 'categories', 'users', 'rooms', 'reservations'];
+    private $tables = ['objects', 'categories', 'users'];
 
     /**
      * Run the database seeds.
@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(ObjectsTableSeeder::class);
-        $this->call(RoomsTableSeeder::class);
-        $this->call(ReservationsTableSeeder::class);
+        // $this->call(RoomsTableSeeder::class);
+        // $this->call(ReservationsTableSeeder::class);
     }
 
     /**

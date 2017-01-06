@@ -5,9 +5,11 @@
         <div class="panel-heading">
             Pregled svih smještajnih jedinica
 
+            @if (Auth::user()->isOwner())
             <div class="pull-right">
                 <a href="{{ route('rooms.create') }}">Dodaj novu smještajnu jedinicu</a>
             </div>
+            @endif
         </div>
 
         <table class="table table-striped">
@@ -20,7 +22,9 @@
                 <th>Broj ljudi</th>
                 <th>Pogled</th>
                 <th>Trenutni status</th>
+                @if (Auth::user()->isOwner())
                 <th></th>
+                @endif
             </tr>
             @foreach ($rooms as $room)
                 <tr>
@@ -50,11 +54,11 @@
                         @else
                             <span class="label label-warning">Nije rezervirano</span></td>
                         @endif
+                    @if (Auth::user()->isOwner())
                     <td style="vertical-align: middle;">
-                        @if (Auth::user()->isOwner())
                         <a href="{{ route('rooms.edit', $room->id) }}" class="btn"><i class="fa fa-edit"></i></a>
-                        @endif
                     </td>
+                    @endif
                 </tr>
             @endforeach
         </table>

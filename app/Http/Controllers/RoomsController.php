@@ -50,7 +50,7 @@ class RoomsController extends Controller
                 'filename' => $photo->hashName(),
             ]);
 
-            $photo->storePublicly('rooms/' . $room->id);
+            $photo->store('rooms/' . $room->id, 'public');
         }
 
         if ($room) {

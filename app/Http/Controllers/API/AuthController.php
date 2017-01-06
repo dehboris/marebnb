@@ -37,7 +37,7 @@ class AuthController extends Controller
         // Create new User instance and persist it to the database
         $user = User::createUser($request->all());
 
-        event(new UserWasRegistered($user));
+        // event(new UserWasRegistered($user));
 
         $code = $user ? 200 : 400;
         $message = $user ? ['data' => $user->api_token] : ['data' => 'Greška u sustavu.'];

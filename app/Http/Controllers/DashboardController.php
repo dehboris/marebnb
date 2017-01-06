@@ -11,7 +11,7 @@ use Auth;
 class DashboardController extends Controller
 {
     /**
-     * Show the application dashboard.
+         * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -29,7 +29,7 @@ class DashboardController extends Controller
             foreach ($reservations as $reservation) {
                 if ($reservation->room_id != $room->id) continue;
 
-                $zauzece[$room->id] += $reservation->date_start->diffInDays($reservation->date_end);
+                $zauzece[$room->id] += $reservation->date_start->diffInDays($reservation->date_end) + 1;
             }
         }
 

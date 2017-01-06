@@ -93,7 +93,7 @@ class Reservation extends Model
             $dateEnd = Carbon::createFromFormat('d/m/Y', $dateEnd);
         }
 
-        return ($dateStart->gte($this->date_start) && $dateStart->lte($this->date_end)) || ($dateEnd->gte($this->date_start) && $dateEnd->lte($this->date_end)) || ($dateStart->lt($this->date_start) && $dateEnd->gt($this->date_end));
+        return ($dateStart->gte($this->date_start) && $dateStart->lte($this->date_end)) || ($dateEnd->gte($this->date_start) && $dateEnd->lte($this->date_end)) || ($dateStart->lte($this->date_start) && $dateEnd->gte($this->date_end));
     }
 
     /**
@@ -128,9 +128,6 @@ class Reservation extends Model
         $attributes = $request->all();
         $attributes['user_id'] = Auth::guard('api')->user()->id;
         $attributes['approved_at'] = null;
-        $attributes['need_parking'] = $request->has('need_parking');
-        $attributes['need_tv'] = $request->has('need_tv');
-        $attributes['need_wifi'] = $request->has('need_wifi');
         $attributes['date_start'] = Carbon::createFromFormat('d/m/Y', $request->get('date_start'));
         $attributes['date_end'] = Carbon::createFromFormat('d/m/Y', $request->get('date_end'));
 
