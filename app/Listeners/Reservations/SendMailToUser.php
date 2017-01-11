@@ -20,6 +20,6 @@ class SendMailToUser
     {
         $reservation = $event->reservation;
 
-        Mail::to($reservation->user)->send(new RoomWasReservedMail($reservation));
+        Mail::to($reservation->user)->queue(new RoomWasReservedMail($reservation));
     }
 }

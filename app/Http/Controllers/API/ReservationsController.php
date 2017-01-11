@@ -41,7 +41,7 @@ class ReservationsController extends Controller
             $room->reserve($reservation->date_start, $reservation->date_end);
 
             // Dispatch the RoomWasReserved event and run all event listeners
-            // event(new RoomWasReserved($reservation));
+             event(new RoomWasReserved($reservation));
 
             return response()->json(['data' => 'Rezervacija uspješna.']);
         } else {

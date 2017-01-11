@@ -108,7 +108,7 @@ class Room extends Model
     }
 
     /**
-     * Get all available rooms.
+     * Get all rooms.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
@@ -134,6 +134,14 @@ class Room extends Model
 
         // Transform room
         $roomTransformer = function ($room) use ($approvedReservations, $reservationsTransformer, $photoFilenameTransformer) {
+            if ($room->isReserved()) {
+                $daysFree = 0;
+            } else {
+                $daysFree = is_null($room->reserved_until) ?
+                    Carbon::now()->diffInDays(Carbon::create(Carbon::now()->year, 5, 1)) :
+                    abs($room->reserved_until->diffInDays(Carbon::now()));
+            }
+
             return [
                 'id'           => $room->id,
                 'label'        => $room->label,
@@ -144,11 +152,17 @@ class Room extends Model
                 'photos'       => $room->photos->transform($photoFilenameTransformer),
                 'object'       => $room->object,
                 'category'     => $room->category,
-                'reservations' => $room->reservations->filter($approvedReservations)->transform($reservationsTransformer)->values()
+                'reservations' => $room->reservations->filter($approvedReservations)->transform($reservationsTransformer)->values(),
+                'rating'       => rand(1, 5),
+                'reserved'     => $room->isReserved(),
+                'days_free'    => $daysFree
             ];
         };
 
-        return static::all()->transform($roomTransformer)->values();
+        return static::all()
+            ->transform($roomTransformer)
+            ->sortByDesc('days_free')
+            ->values();
     }
 
     /**
@@ -168,10 +182,10 @@ class Room extends Model
      * @param $date
      * @return Carbon
      */
-    public function getReservedUntilAttribute($date)
-    {
-        return Carbon::parse($date);
-    }
+//    public function getReservedUntilAttribute($date)
+//    {
+//        return Carbon::parse($date);
+//    }
 
     /**
      * Check if room is reserved right now.
@@ -182,7 +196,7 @@ class Room extends Model
     {
         $now = Carbon::now();
 
-        return $this->reserved_at->gte($now) && $this->reserved_until->lte($now);
+        return $this->reserved_at->lte($now) && $this->reserved_until->gte($now);
     }
 
     /**

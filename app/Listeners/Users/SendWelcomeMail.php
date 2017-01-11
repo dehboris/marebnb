@@ -20,6 +20,6 @@ class SendWelcomeMail
     {
         $user = $event->user;
 
-        Mail::to($user)->send(new WelcomeMail($user));
+        Mail::to($user)->queue(new WelcomeMail($user));
     }
 }
