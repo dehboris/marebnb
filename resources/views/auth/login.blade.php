@@ -3,7 +3,9 @@
 @section('content')
     <div class="login">
         <div class="window" id="login">
+
             <form action="{{ route('login') }}" method="POST">
+                <img src="{{ asset('images/logo.png') }}" width="100%" style="margin-bottom: 20px">
                 {{ csrf_field() }}
 
                 @if ($errors->count() != 0)
