@@ -53,7 +53,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable;
 
     /**
      * Owner role
@@ -82,7 +82,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $dates = ['deleted_at', 'last_activity'];
+    protected $dates = ['last_activity'];
 
     /**
      * The attributes that should be hidden for arrays.
